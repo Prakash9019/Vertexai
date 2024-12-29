@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { VertxHero } from './Components/Homepage';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PitchBuilder from './Components/PitchBuilder';
+import PitchAnalysis from './Components/PitchAnalysis';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-    <VertxHero />
-    </>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/create" element={<PitchBuilder />} />
+        <Route path="/analyze" element={<PitchAnalysis />} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;
