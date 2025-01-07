@@ -6,8 +6,9 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: { 'kode-mono': ['Kode Mono', 'monospace'], },
+      fontFamily: { 'kode-mono': ['Kode Mono', 'monospace'],sans: ['Manrope', 'sans-serif'] },
     },
   },
   plugins: [],
 }
+
