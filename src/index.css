@@ -79,3 +79,25 @@
     border-color: hsl(var(--border));
   }
 
+
+  .swiper-button-next,
+.swiper-button-prev {
+  color: white !important; /* Change the arrow color */
+}
+
+/* Change pagination bullets to white */
+.swiper-pagination-bullet {
+  background: white !important; /* Default bullet color */
+}
+
+/* Change active pagination bullet color */
+.swiper-pagination-bullet-active {
+  background: white !important; /* Active bullet color */
+  opacity: 1; /* Ensure visibility */
+}
+
+/* Optional: Add hover effects to navigation buttons */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: rgba(255, 255, 255, 0.8) !important; /* Slightly transparent white */
+}

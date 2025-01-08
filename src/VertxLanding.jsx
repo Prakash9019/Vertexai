@@ -1,39 +1,25 @@
-import React,{useState} from 'react';
+import React, { useRef,useState } from 'react';
 import image12 from "./assets/image12.png"
 import image13 from "./assets/image13.png"
 import image14 from "./assets/image14.png"
 import image0 from "./assets/image0.png"
 import image1 from "./assets/image1.png"
 import image2 from "./assets/image2.png"
+import image3 from "./assets/image3.png"
+import SlidingFeatureCards from './sliding';
 import logo from "./assets/logo.png"
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+// import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const images = [image0, image1, image2];
+const images = [image0, image1, image2,image3];
 
 
 export function VertxLanding() {
 
-   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const visibleCards = 2.5; // Number of visible cards
-  const cardWidthPercentage = 100 / visibleCards;
-
-  const nextCard = () => {
-    if (currentIndex < features.length - visibleCards) {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-    }
-  };
-
-  const prevCard = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((prevIndex) => prevIndex - 1);
-    }
-  };
-
   const features = [
-    { title: 'Explore', className: 'w-[33%] max-md:ml-0 max-md:w-full' },
-    { title: 'Outreach', className: 'ml-5 w-[33%] max-md:ml-0 max-md:w-full' },
-    { title: 'Showcase', className: 'ml-5 w-[33%] max-md:ml-0 max-md:w-full' }
+    { title: 'Explore', className: ' ' },
+    { title: 'Outreach', className: '  ' },
+    { title: 'Showcase', className: '  ' },
+    { title: 'Activity', className: '  ' },
   ];
 
   return (
@@ -103,9 +89,6 @@ export function VertxLanding() {
           />
 
         </button>
-
-
-
         <h2 className="mt-24 text-5xl font-semibold tracking-tighter text-center text-white w-[838px] max-md:mt-10 max-md:max-w-full max-md:text-4xl">
           Updating and generation of docs is simplified with geet AI on vertx
         </h2>
@@ -122,7 +105,7 @@ export function VertxLanding() {
 
       </main>
 
-      <div className="flex justify-end items-center mt-6 space-x-4">
+      {/* <div className="flex justify-end items-center mt-6 space-x-4">
         <button
           onClick={prevCard}
           className="p-2 text-4xl font-bold tracking-tighter text-neutral-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-white rounded-full"
@@ -137,52 +120,9 @@ export function VertxLanding() {
         >
           <ChevronRight size={32} />
         </button>
-      </div>
+      </div> */}
 
-
-      <section
-      className="mt-10 w-full max-md:mt-10 max-md:max-w-full"
-      aria-label="Feature cards"
-    >
-      <div className="relative overflow-hidden">
-        {/* Cards Wrapper */}
-        <div
-          className="flex gap-5 transition-transform duration-500"
-          // style={{
-          //   transform: `translateX(-${currentIndex * 100}%)`,
-          //   width: `${features.length * 100}%`,
-          // }}
-        >
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="flex flex-col flex-shrink-0 w-full max-md:w-full"
-            >
-              <div
-                className={`flex relative flex-col grow pt-6 pr-20 pb-56 pl-6 rounded-xl min-h-[514px] max-md:px-5 max-md:pb-24 max-md:mt-5 max-md:max-w-full ${feature.className}`}
-              >
-                <img
-                  loading="lazy"
-                  src={images[index]}
-                  alt={`${feature.title} feature background`}
-                  className="object-cover absolute inset-0 size-full"
-                />
-                <h3 className="relative self-start text-3xl font-bold tracking-tighter text-white">
-                  {feature.title}
-                </h3>
-                <button
-                  className="relative self-center px-8 py-2.5 mt-44 max-w-full text-2xl font-bold tracking-tighter text-black bg-white border-2 border-white border-solid rounded-[100px] w-[252px] max-md:px-5 max-md:mt-10 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
-                  aria-label={`Learn more about ${feature.title}`}
-                >
-                  Learn more &gt;
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-     
-    </section>
+      <SlidingFeatureCards features={features} images={images} />
 
       <section className="flex flex-col justify-center items-center self-center px-20 py-40 mt-20 w-full bg-white rounded-xl max-w-[1321px] max-md:px-5 max-md:py-24 max-md:mt-10 max-md:max-w-full" aria-labelledby="cta-title">
         <div className="flex flex-col mb-0 max-w-full w-[456px] max-md:mb-2.5">
