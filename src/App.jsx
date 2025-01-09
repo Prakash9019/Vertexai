@@ -6,6 +6,7 @@ import { LandingHero } from './opening';
 
 const App = () => {
   return (
+    
     <Router>
       
       <Routes>
