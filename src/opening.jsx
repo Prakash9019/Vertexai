@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button } from "./components/Button";
+import { Button } from "./Components2/button";
 import { useNavigate } from 'react-router-dom';
 import logo from "./assets/logo.png"
 export function LandingHero() {
