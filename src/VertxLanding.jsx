@@ -1,4 +1,5 @@
 import React, { useRef,useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import image12 from "./assets/image12.png"
 import image13 from "./assets/image13.png"
 import image14 from "./assets/image14.png"
@@ -14,6 +15,11 @@ const images = [image0, image1, image2,image3];
 
 
 export function VertxLanding() {
+  const navigate = useNavigate();
+
+   const handleClick=()=>{
+           navigate("/geet");
+   }
 
   const features = [
     { title: 'Explore', className: ' ' },
@@ -93,7 +99,7 @@ export function VertxLanding() {
           Updating and generation of docs is simplified with geet AI on vertx
         </h2>
 
-        <button className="flex relative flex-col justify-center px-20 py-12 mt-24 w-full rounded-xl max-w-[1080px] min-h-[600px] max-md:px-5 max-md:mt-10 max-md:max-w-full" aria-label="AI documentation interface">
+        <button onClick={()=> handleClick()} className="flex relative flex-col justify-center px-20 py-12 mt-24 w-full rounded-xl max-w-[1080px] min-h-[600px] max-md:px-5 max-md:mt-10 max-md:max-w-full" aria-label="AI documentation interface">
           <img
             loading="lazy"
             src={image14}
