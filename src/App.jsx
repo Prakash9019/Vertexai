@@ -4,6 +4,7 @@ import { VertxLanding } from './VertxLanding';
 import { LandingHero } from './opening';
 import Geet from './Components2/Founder/Geet';
 import VertxInterface from './Components2/Founder/Homepage';
+import { JoinSection } from './Components2/SignUp';
 
 
 const App = () => {
@@ -15,7 +16,8 @@ const App = () => {
         <Route path="/main" element={<VertxLanding /> } />
         <Route path="/" element={<LandingHero />} />
         <Route path='/geet' element={<Geet />} />
-        <Route path='/founder' element={<VertxInterface />} />
+        <Route path='/founder/home' element={<VertxInterface />} />
+        <Route path='/select' element={ <JoinSection />} />
       </Routes>
     </Router>
   );
