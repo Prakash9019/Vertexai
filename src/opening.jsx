@@ -1,12 +1,16 @@
 import * as React from "react";
-import { Button } from "./Components2/button";
 import { useNavigate } from 'react-router-dom';
 import logo from "./assets/logo.png"
+
+
 export function LandingHero() {
   const navigate = useNavigate(); 
   
   const handleClick = () => { 
-    console.log("helllo")
+    navigate('/signup');
+  }
+
+  const handleClick1 = () => { 
     navigate('/main');
   }
 
@@ -30,8 +34,8 @@ export function LandingHero() {
                 A vertex where founders and investors converge.
               </div>
               <div className="flex gap-2.5 mt-12 max-md:mt-10">
-                <button className="px-11 text-black bg-white py-3.5 rounded-[100px] text-xl" onClick={handleClick} >Overview</button>
-                <Button variant="secondary">Watch video</Button>
+                <button className="px-11 text-black bg-white py-3.5 rounded-[100px] text-xl" onClick={handleClick} >Try Vertx</button>
+                <button className="px-8 text-white border-2 border-white border-solid py-3.5 rounded-[100px] text-xl" onClick={handleClick1} >Overview</button>
               </div>
             </div>
           </div>
