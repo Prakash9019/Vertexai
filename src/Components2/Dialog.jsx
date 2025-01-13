@@ -146,16 +146,16 @@
 // }
 
 
-
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 // Button component
-const Button = ({ children, variant = 'default', onClick }) => {
-  const baseStyles = "px-4 py-2 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none";
+const Button = ({ children, variant = "default", onClick }) => {
+  const baseStyles =
+    "px-4 py-2 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none";
   const variants = {
     default: "text-white bg-blue-600",
     outline: "text-white border border-gray-300 hover:bg-gray-700",
-    filled: "text-black bg-white"
+    filled: "text-black bg-white",
   };
 
   return (
@@ -180,16 +180,18 @@ export default function AuthFlow() {
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       <Button onClick={handleOpen}>Open Auth Dialog</Button>
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-[#1E1E1E] border border-[#2A2A2A] m-2 p-6 rounded-lg text-white w-full max-w-md relative">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto ">
+          <div className="bg-[#1E1E1E] border border-[#2A2A2A] p-3 rounded-lg text-white w-full max-w-md relative">
             <button
               className="absolute top-2 left-2 text-white text-5xl p-3"
               onClick={handleClose}
             >
               &times;
             </button>
-            <div className="flex flex-col gap-4 items-center justify-center my-auto text-xl font-extrabold tracking-tighter text-white">
-              <h1 className="self-center text-5xl tracking-tighter max-md:text-4xl max-md:mb-5">Join today.</h1>
+            <div className="flex flex-col gap-4 items-center justify-center my-auto my-3 text-2xl font-extrabold tracking-tighter text-white p-12">
+              <h1 className="self-center text-6xl tracking-tighter max-md:text-4xl max-md:mb-5">
+                Join today.
+              </h1>
               <Button variant="outline">Sign up with Google</Button>
               <div className="flex gap-3.5 items-center text-base whitespace-nowrap">
                 <div className="shrink-0 self-stretch my-auto h-0 border border-white border-solid w-[158px]" />
@@ -197,13 +199,24 @@ export default function AuthFlow() {
                 <div className="shrink-0 self-stretch my-auto h-0 border border-white border-solid w-[158px]" />
               </div>
               <Button variant="filled">Create account</Button>
-              <p className="text-sm">
-                By signing up, you agree to the{' '}
-                <a href="#terms" className="underline">Terms of Service</a> and{' '}
-                <a href="#privacy" className="underline">Privacy Policy</a>, including{' '}
-                <a href="#cookies" className="underline">Cookie Use</a>.
+              <p className="text-xl">
+                By signing up, you agree to the{" "}
+                <a href="#terms" className="underline">
+                  Terms of Service
+                </a>{" "}
+                and{" "}
+                <a href="#privacy" className="underline">
+                  Privacy Policy
+                </a>
+                , including{" "}
+                <a href="#cookies" className="underline">
+                  Cookie Use
+                </a>
+                .
               </p>
-              <p className="self-center mt-24 max-md:mt-10">Already have an account?{' '}</p>
+              <p className="self-center mt-24 max-md:mt-10">
+                Already have an account?{" "}
+              </p>
               <Button variant="outline">Log in</Button>
             </div>
           </div>
