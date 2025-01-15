@@ -8,6 +8,8 @@ import { JoinSection } from './Components2/SignUp';
 import AuthLayout from './Components2/SignUp2';
 import AuthFlow from './Components2/Dialog';
 import { CreateAccountForm } from './NewAccount';
+import Username from './Username';
+import { Categories } from './CatSection';
 
 
 const App = () => {
@@ -17,7 +19,7 @@ const App = () => {
       
       <Routes>
         <Route path="/main" element={<VertxLanding /> } />
-        <Route path="/" element={<LandingHero />} />
+        <Route path="/" element={<Categories />} />
         <Route path='/geet' element={<Geet />} />
         <Route path='/founder/home' element={<VertxInterface />} />
         <Route path='/signup' element={ <JoinSection />} />
@@ -29,3 +31,6 @@ const App = () => {
 };
 
 export default App;
+
+
+// Username,Newaccount,Catsection
