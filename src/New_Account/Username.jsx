@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useState,useNavigate } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Username() {
   const [username, setUsername] = useState("");

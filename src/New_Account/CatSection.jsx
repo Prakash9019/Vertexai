@@ -1,5 +1,5 @@
 import { useState } from "react";
-import logo1 from "./assets/logo1.png";
+import logo1 from "../assets/logo1.png";
 
 const categories = [
   "Aerospace",  "Agriculture",  "Adtech",  "Analytics",  "B2B/B2C",

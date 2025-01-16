@@ -1,5 +1,6 @@
 
-import React, { useState,useNavigate } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AuthLayout() {
   const [isOpen, setIsOpen] = useState(false);
