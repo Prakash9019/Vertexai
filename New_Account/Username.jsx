@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState,useNavigate } from "react";
 
 export default function Username() {
   const [username, setUsername] = useState("");
@@ -7,9 +7,11 @@ export default function Username() {
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
+  const navigate = useNavigate();
 
   const handleSkip = () => {
     setUsername("");
+    navigate("/categories");
   };
 
   return (

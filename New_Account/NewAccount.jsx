@@ -1,6 +1,11 @@
-import * as React from "react";
+import {useNavigate} from "react";
 
 export function CreateAccountForm() {
+  const navigate = useNavigate();
+
+  const handleClick=()=>{
+          navigate("/username");
+  }
   const formFields = [
     { label: "Name", placeholder: "Name" },
     { 
@@ -69,6 +74,7 @@ export function CreateAccountForm() {
               type="submit"
               className="px-12 py-3 mt-14 font-extrabold text-black whitespace-nowrap bg-neutral-500 rounded-[100px] hover:bg-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 max-md:px-5 max-md:mt-10 max-md:max-w-full"
               aria-label="Create account"
+              onClick={()=>{ handleClick()}}
             >
               Next
             </button>

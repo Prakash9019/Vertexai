@@ -7,9 +7,9 @@ import VertxInterface from './Components2/Founder/Homepage';
 import { JoinSection } from './Components2/SignUp';
 import AuthLayout from './Components2/SignUp2';
 import AuthFlow from './Components2/Dialog';
-import { CreateAccountForm } from './NewAccount';
-import Username from './Username';
-import { Categories } from './CatSection';
+import { CreateAccountForm } from '../New_Account/NewAccount';
+import Username from '../New_Account/Username';
+import CategorySelection from '../New_Account/CatSection';
 
 
 const App = () => {
@@ -19,12 +19,15 @@ const App = () => {
       
       <Routes>
         <Route path="/main" element={<VertxLanding /> } />
-        <Route path="/" element={<Categories />} />
+        <Route path="/" element={<LandingHero />} />
         <Route path='/geet' element={<Geet />} />
         <Route path='/founder/home' element={<VertxInterface />} />
         <Route path='/signup' element={ <JoinSection />} />
         <Route path="/new" element={<CreateAccountForm /> } />
         <Route path='/signup1' element={<AuthLayout/>} />
+        <Route path='/newaccount' element={<CreateAccountForm /> } />
+        <Route path='/username' element={<Username /> } />
+        <Route path='/categories' element={<CategorySelection /> } />
       </Routes>
     </Router>
   );

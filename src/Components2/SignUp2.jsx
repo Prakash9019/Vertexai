@@ -1,9 +1,13 @@
 
-import React, { useState } from "react";
+import React, { useState,useNavigate } from "react";
 
 function AuthLayout() {
   const [isOpen, setIsOpen] = useState(false);
-  
+  const navigate = useNavigate();
+
+  const handleClick=()=>{
+          navigate("/newaccount");
+  }
     const handleOpen = () => {
       setIsOpen(true);
     };
@@ -24,7 +28,7 @@ function AuthLayout() {
       default: "text-white",
       filled: "text-black bg-white"
     };
-  
+   
     return (
       <button 
         className={`${baseStyles} ${variants[variant]}`}
@@ -106,13 +110,13 @@ function AuthLayout() {
         <h1 className="self-center text-6xl tracking-tighter max-md:text-4xl max-md:mb-5">
           Join today.
         </h1>
-        <Button variant="outline"> Sign up with credentials </Button>
+        <button className=" m-3 px-16 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white"> Sign up with credentials </button>
         <div className="flex gap-3.5 items-center text-base whitespace-nowrap">
           <div className="shrink-0 self-stretch my-auto h-0 border border-white border-solid w-[158px]" />
           <div className="self-stretch">or</div>
           <div className="shrink-0 self-stretch my-auto h-0 border border-white border-solid w-[158px]" />
         </div>
-        <Button variant="filled">Create account</Button>
+        <button className="m-3 px-16 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-black bg-white" onClick={ ()=> {handleClick()}}>Create account</button>
         <p className="text-xl">
           By signing up, you agree to the{" "}
           <a href="#terms" className="underline">
@@ -131,7 +135,7 @@ function AuthLayout() {
         <p className="self-center mt-24 max-md:mt-10">
           Already have an account?{" "}
         </p>
-        <Button variant="outline">Log in</Button>
+        <button className="m-3 px-16 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white" >Log in</button>
       </div>
     </div>
   </div>
