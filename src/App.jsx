@@ -19,7 +19,7 @@ const App = () => {
       
       <Routes>
         <Route path="/main" element={<VertxLanding /> } />
-        <Route path="/" element={<AuthFlow />} />
+        <Route path="/" element={<LandingHero />} />
         <Route path='/geet' element={<Geet />} />
         <Route path='/founder/home' element={<VertxInterface />} />
         <Route path='/signup' element={ <JoinSection />} />
