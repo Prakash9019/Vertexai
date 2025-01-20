@@ -1,5 +1,5 @@
 import { Home, Search, Users, Package, Heart, Settings, MoreHorizontal } from 'lucide-react'
-
+import logo from "../../assets/logo.png"
 export default function VertxInterface() {
   return (
     <div className="min-h-screen bg-black text-white">
@@ -8,13 +8,13 @@ export default function VertxInterface() {
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img
-              src="/placeholder.svg"
+              src={logo}
               alt="Vertx Logo"
               width={32}
               height={32}
-              className="h-8 w-8"
+              className="object-contain aspect-square w-[100px]"
             />
-            <span className="text-xl font-bold">VERTX</span>
+            {/* <span className="text-xl font-bold">VERTX</span> */}
           </div>
           <div className="flex items-center gap-4">
             <button className="px-4 py-2 rounded-md border border-gray-700 text-gray-400 hover:bg-gray-800 transition-colors">
