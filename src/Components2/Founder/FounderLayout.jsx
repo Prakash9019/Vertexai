@@ -1,48 +1,32 @@
 import React,{useState} from 'react';
-import { Home, Search, Users, Package, Heart, Settings, MoreHorizontal, House } from 'lucide-react'
+// import { Home, Search, Users, Package, Heart, Settings, MoreHorizontal, House } from 'lucide-react'
+import { FaHome, FaSearch, FaUsers, FaBox, FaHeart, FaCog, FaEllipsisH } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import logo from "../../assets/logo.png"
 import { Link, Outlet } from 'react-router-dom';
 
 const FounderLayout = () => {
-    const [isActive, setIsActive] = useState(false);
-    const navigate = useNavigate();
-  
-    const handleClick = () => {
-      setIsActive(!isActive);
-      console.log(isActive);
-      navigate('/founder/home'); // Replace '/home' with your desired route
-    };
+  const [activeIndex, setActiveIndex] = useState(0); // To track the active button
+  const navigate = useNavigate();
+
+  const menuItems = [
+    { icon: FaHome, label: "Home", route: "/home" },
+    { icon: FaSearch, label: "Explore", route: "/explore" },
+    { icon: FaUsers, label: "Outreach", route: "/outreach" },
+    { icon: FaBox, label: "Showcase", route: "/showcase" },
+    { icon: FaHeart, label: "Activity", route: "/activity" },
+    { icon: FaCog, label: "Get verified", route: "/get-verified" },
+    { icon: FaEllipsisH, label: "More", route: "/more" },
+  ];
+
+  const handleClick = (index, route) => {
+    setActiveIndex(index); // Set the clicked button as active
+    console.log(`/founder${route}`);
+    navigate(`/founder${route}`); // Navigate to the specified route
+  };
 
   return (
-    // <div className="flex min-h-screen">
-    //   <aside className="w-64 h-screen bg-gray-800 text-white fixed">
-    //     <div className="p-4">
-    //       <h1 className="text-2xl font-bold">My App</h1>
-    //       <nav className="mt-4">
-    //         <Link to="/founder/home" className="block py-2 px-4 hover:bg-gray-700">Home</Link>
-    //         <Link to="/founder/geet" className="block py-2 px-4 hover:bg-gray-700">Geet</Link>
-    //         {/* <Link to="/founder/contact" className="block py-2 px-4 hover:bg-gray-700">Contact</Link> */}
-    //       </nav>
-    //     </div>
-    //   </aside>
-    //   <div className="flex-1 ml-64">
-    //     <header className="bg-blue-600 text-white p-4 fixed w-full" style={{ marginLeft: '16rem' }}>
-    //       <h1 className="text-xl">Header</h1>
-    //     </header>
-    //     <main className="mt-16 p-4">
-    //       <Outlet />
-    //     </main>
-    //   </div>
-    // </div>
-
-
-
-
-
-
-
-
+    
     <div className="min-h-screen bg-black text-white">
       {/* Top Navigation */}
       <header className="border-b border-gray-800">
@@ -71,35 +55,29 @@ const FounderLayout = () => {
         </div>
       </header>
 
-      <div className="container flex gap-6 p-4 max-w-full">
+      <div className="container flex gap-6 px-4 max-w-full ">
         {/* Left Sidebar */}
-        <aside className="w-64 space-y-4">
-          <nav className="space-y-2">
-            {[
-              { icon: <House
-                className={`h-5 w-5 cursor-pointer transition-colors duration-200 ${
-                  isActive ? 'fill-white text-white' : 'fill-none text-gray-500'
-                }`}
-              />
-                
-                , label: "Home" },
-              { icon: <Search className="h-5 w-5" />, label: "Explore" },
-              { icon: <Users className="h-5 w-5" />, label: "Outreach" },
-              { icon: <Package className="h-5 w-5" />, label: "Showcase" },
-              { icon: <Heart className="h-5 w-5" />, label: "Activity" },
-              { icon: <Settings className="h-5 w-5" />, label: "Get verified" },
-              { icon: <MoreHorizontal className="h-5 w-5" />, label: "More" },
-            ].map((item, index) => (
-              <button
-                key={index}
-                className="flex w-full items-center gap-2 px-4 py-2 text-left text-gray-300 hover:bg-gray-800 rounded-lg transition-colors"
-                onClick={()=> {handleClick()}}
-              >
-                {item.icon}
-                {item.label}
-              </button>
-            ))}
-          </nav>
+        <aside className="w-64 space-y-4 py-4 border-r border-gray-800 last:border-none">
+        <nav className="space-y-2">
+      {menuItems.map((item, index) => (
+        <button
+          key={index}
+          className={`flex w-full items-center gap-2 px-4 py-2 text-left rounded-lg transition-colors ${
+            activeIndex === index
+              ? 'text-white bg-gray-800' // Active button styles
+              : 'text-gray-300 hover:bg-gray-800'
+          }`}
+          onClick={() => handleClick(index, item.route)}
+        >
+          <item.icon
+            className={`h-5 w-5 transition-colors duration-200 ${
+              activeIndex === index ? 'fill-white text-white' : ' text-gray-500'
+            }`}
+          />
+          {item.label}
+        </button>
+      ))}
+    </nav>
         </aside>
            
 
@@ -108,6 +86,7 @@ const FounderLayout = () => {
             {/* </main> */}
 
         </div>
+        
         </div>
   );
 };

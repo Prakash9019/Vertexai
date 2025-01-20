@@ -9,10 +9,8 @@ export function JoinSection() {
   const navigate = useNavigate(); 
   
   const handleClick2 = () => { 
-    console.log("hello")
-    console.log(location.pathname);
+  
     navigate('/signup1');
-    console.log(location.pathname);
   }
 
   return (
@@ -26,14 +24,14 @@ export function JoinSection() {
         />
       </div>
       <div className="flex flex-col items-center justify-center my-auto text-xl font-extrabold tracking-tighter text-white w-1/2">
-        <h1 id="join-heading" className="text-5xl tracking-tighter max-md:mr-1.5 max-md:text-4xl">
+        <h1 id="join-heading" className="text-5xl tracking-tighter max-md:mr-1.5 mb-4 max-md:text-4xl">
           Join today.
         </h1>
      
-           <div className="mt-4 first:mt-8">
+           <div className="mt-8 first:mt-8">
             <button className="px-16 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white" onClick={ handleClick2}>Founder</button>
           </div>
-          <div className="mt-4 first:mt-8">
+          <div className="mt-3">
             <button className="px-16 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-black bg-white" >Investor</button>
           </div>
 

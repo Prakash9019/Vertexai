@@ -34,7 +34,7 @@ export function LandingHero() {
                 A vertex where founders and investors converge.
               </div>
               <div className="flex gap-2.5 mt-12 max-md:mt-10">
-                <button className="px-11 text-black bg-white py-3.5 rounded-[100px] text-xl" onClick={handleClick} >Try Vertx</button>
+                <button className="px-11 text-black bg-white py-3.5 rounded-[100px] text-xl font-extrabold" onClick={handleClick} >Try Vertx</button>
                 <button className="px-8 text-white border-2 border-white border-solid py-3.5 rounded-[100px] text-xl" onClick={handleClick1} >Overview</button>
               </div>
             </div>

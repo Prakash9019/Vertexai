@@ -71,7 +71,7 @@ export function CreateAccountForm() {
       label: 'Email',
       placeholder: 'Email',
       hasInfo: true,
-      info: 'Business domain only*',
+      info: '',
       validateEmail: true,
     },
     {
@@ -85,6 +85,10 @@ export function CreateAccountForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
+
+  const [email, setEmail] = useState(''); const [password, setPassword] = useState(''); const [isFilled, setIsFilled] = useState(false); useEffect(() => { if (email && password) { setIsFilled(true); } else { setIsFilled(false); } }, [email, password]);
+
 
   return (
     <div className="flex flex-col text-xl font-semibold text-white bg-black min-h-screen">
@@ -113,6 +117,7 @@ export function CreateAccountForm() {
                   label={field.label === 'Date of birth' ? " ": field.label}
                   type={field.label === 'Date of birth' ? 'date' : 'text'}
                   validateEmail={field.validateEmail || false}
+                  // onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-6 bg-black rounded-md border border-solid border-neutral-500 text-white"
                 />
                 {field.hasInfo && (

@@ -24,7 +24,7 @@ function AuthLayout() {
   ];
 
   function Button({ children, variant = "default" }) {
-    const baseStyles = "m-3 px-16 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none";
+    const baseStyles = "w-1/2 m-3 px-3 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none";
     const variants = {
       default: "text-white",
       filled: "text-black bg-white"
@@ -58,7 +58,7 @@ function AuthLayout() {
       </div>
       <div className="flex flex-col items-center justify-center my-auto text-xl font-extrabold tracking-tighter text-white w-1/2">
 
-      <h1 className="self-center text-5xl tracking-tighter max-md:text-4xl max-md:mb-5">
+      <h1 className="self-center text-5xl tracking-tighter mb-8 max-md:text-4xl max-md:mb-5">
               Join today.
             </h1>
             
@@ -69,7 +69,7 @@ function AuthLayout() {
               <div className="shrink-0 self-stretch my-auto h-0 border border-white border-solid w-[158px]" />
             </div>
             <Button variant="filled">Create account</Button>
-            <p className="mt-3 text-sm">
+            <p className="mt-3 text-sm w-1/2 font-normal	tracking-normal ">
               By signing up, you agree to the{" "}
               <a href="#terms" className="underline ">
                 Terms of Service
@@ -108,17 +108,17 @@ function AuthLayout() {
         &times;
       </button>
       <div className="flex flex-col gap-4 items-center justify-center my-auto text-2xl font-extrabold tracking-tighter text-white p-12">
-        <h1 className="self-center text-6xl tracking-tighter max-md:text-4xl max-md:mb-5">
+        <h1 className="self-center mb-6 text-6xl tracking-tighter max-md:text-4xl max-md:mb-5">
           Join today.
         </h1>
-        <button className=" m-3 px-16 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white"> Sign up with credentials </button>
+        <button className=" w-1/3 m-3 px-3 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white"> Sign up with credentials </button>
         <div className="flex gap-3.5 items-center text-base whitespace-nowrap">
           <div className="shrink-0 self-stretch my-auto h-0 border border-white border-solid w-[158px]" />
           <div className="self-stretch">or</div>
           <div className="shrink-0 self-stretch my-auto h-0 border border-white border-solid w-[158px]" />
         </div>
-        <button className="m-3 px-16 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-black bg-white" onClick={ ()=> {handleClick()}}>Create account</button>
-        <p className="text-xl">
+        <button className="w-1/3 m-3 px-3 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-black bg-white" onClick={ ()=> {handleClick()}}>Create account</button>
+        <p className="mt-3 text-sm w-1/3 font-normal	tracking-normal">
           By signing up, you agree to the{" "}
           <a href="#terms" className="underline">
             Terms of Service
@@ -136,7 +136,7 @@ function AuthLayout() {
         <p className="self-center mt-24 max-md:mt-10">
           Already have an account?{" "}
         </p>
-        <button className="m-3 px-16 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white" >Log in</button>
+        <button className="w-1/3 m-3 px-3 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white" >Log in</button>
       </div>
     </div>
   </div>
