@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { VertxLanding } from './VertxLanding';
 import { LandingHero } from './opening';
 import Geet from './Components2/Founder/Geet';
-import VertxInterface from './Components2/Founder/Homepage';
+import FounderPage from './Components2/Founder/FounderPage';
 import { JoinSection } from './Components2/SignUp';
 import AuthLayout from './Components2/SignUp2';
 import AuthFlow from './Components2/Dialog';
@@ -21,7 +21,8 @@ const App = () => {
         <Route path="/main" element={<VertxLanding /> } />
         <Route path="/" element={<LandingHero />} />
         <Route path='/geet' element={<Geet />} />
-        <Route path='/founder/home' element={<VertxInterface />} />
+        <Route path="/founder/*" element={<FounderPage />} />
+        {/* <Route path='/founder/home' element={<VertxInterface />} /> */}
         <Route path='/signup' element={ <JoinSection />} />
         <Route path="/new" element={<CreateAccountForm /> } />
         <Route path='/signup1' element={<AuthLayout/>} />

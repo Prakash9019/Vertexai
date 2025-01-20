@@ -37,9 +37,10 @@ export default function Username() {
                 </label>
                 <input
                   type="text"
-                  id="username"
+                  placeholder="Enter your Username"
                   name="username"
                   value={username}
+                   
                   onChange={handleUsernameChange}
                   className="w-full bg-black rounded-md border border-solid border-neutral-500 h-[74px] px-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white"
                   aria-label="Username input"
