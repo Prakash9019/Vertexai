@@ -10,6 +10,7 @@ import AuthFlow from './Components2/Dialog';
 import { CreateAccountForm } from './New_Account/NewAccount';
 import Username from './New_Account/Username';
 import CategorySelection from './New_Account/CatSection';
+import { Signin } from './Components2/Signin';
 
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
         <Route path='/signup' element={ <JoinSection />} />
         <Route path="/new" element={<CreateAccountForm /> } />
         <Route path='/signup1' element={<AuthLayout/>} />
+        <Route path='/signin' element={<Signin/>} />
         <Route path='/newaccount' element={<CreateAccountForm /> } />
         <Route path='/username' element={<Username /> } />
         <Route path='/categories' element={<CategorySelection /> } />

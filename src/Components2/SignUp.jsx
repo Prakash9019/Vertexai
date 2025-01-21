@@ -23,8 +23,8 @@ export function JoinSection() {
           className="object-contain max-w-full aspect-[0.95] w-[200px]"
         />
       </div>
-      <div className="flex flex-col items-center justify-center my-auto text-xl font-extrabold tracking-tighter text-white w-1/2">
-        <h1 id="join-heading" className="text-5xl tracking-tighter max-md:mr-1.5 mb-4 max-md:text-4xl">
+      <div className="flex flex-col items-center justify-center  text-xl font-extrabold tracking-tighter text-white w-1/2">
+        <h1 id="join-heading" className="text-5xl tracking-tighter max-md:mr-1.5 mb-6 max-md:text-4xl">
           Join today.
         </h1>
      

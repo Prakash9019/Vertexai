@@ -42,7 +42,7 @@ export default function Username() {
                   value={username}
                    
                   onChange={handleUsernameChange}
-                  className="w-full bg-black rounded-md border border-solid border-neutral-500 h-[74px] px-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white"
+                  className="w-full bg-black rounded-md border border-solid border-neutral-500 h-[74px] px-4 text-xl focus:outline-none focus:border-white focus:ring-2 focus:ring-white"
                   aria-label="Username input"
                   autoComplete="username"
                 />
