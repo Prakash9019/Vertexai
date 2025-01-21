@@ -1,24 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const FloatingLabelInput = ({ id, label, type = 'text', maxLength = 50, validateEmail = false, className = '' }) => {
-  const [value, setValue] = useState('');
+const FloatingLabelInput = ({ id, label, type = 'text', maxLength = 50, validateEmail = false, value, onChange, onValidate, className = '' }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [error, setError] = useState('');
 
   const validateInput = (inputValue) => {
+    let valid = true;
     if (validateEmail) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(inputValue)) {
         setError('Please enter a valid email address');
+        valid = false;
       } else {
         setError('');
       }
     } else if (inputValue.length === 0) {
       setError(`${label} is required`);
+      valid = false;
     } else {
       setError('');
     }
+    onValidate(valid);
   };
 
   useEffect(() => {
@@ -45,8 +48,7 @@ const FloatingLabelInput = ({ id, label, type = 'text', maxLength = 50, validate
         value={value}
         maxLength={maxLength}
         className={`${className} ${error ? 'border-red-500' : ''}`}
-        // placeholder={isFocused || value ? '' : label}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => {
           setIsFocused(false);
@@ -58,6 +60,11 @@ const FloatingLabelInput = ({ id, label, type = 'text', maxLength = 50, validate
   );
 };
 
+
+
+
+
+
 export function CreateAccountForm() {
   const navigate = useNavigate();
 
@@ -65,29 +72,18 @@ export function CreateAccountForm() {
     navigate('/username');
   };
 
-  const formFields = [
-    { label: 'Name', placeholder: 'Name' },
-    {
-      label: 'Email',
-      placeholder: 'Email',
-      hasInfo: true,
-      info: '',
-      validateEmail: true,
-    },
-    {
-      label: 'Date of birth',
-      placeholder: 'DD/MM/YYYY',
-      hasInfo: true,
-      info: 'This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.',
-    },
-  ];
-
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
 
-  const [email, setEmail] = useState(''); const [password, setPassword] = useState(''); const [isFilled, setIsFilled] = useState(false); useEffect(() => { if (email && password) { setIsFilled(true); } else { setIsFilled(false); } }, [email, password]);
+  const [email, setEmail] = useState(''); 
+  const [name, setName] = useState('');
+  const [date, setDate] = useState('');
+  const [isEmailValid, setIsEmailValid] = useState(false); const [isNameValid, setIsNameValid] = useState(false); const [isDateValid, setIsDateValid] = useState(false);
+   const [isFilled, setIsFilled] = useState(false); 
+
+   useEffect(() => { if (isEmailValid && isNameValid && isDateValid) { setIsFilled(true); console.log("All fields filled"); } else { setIsFilled(false); console.log("Fields missing"); } }, [email, isEmailValid, name, isNameValid, date, isDateValid]);
 
 
   return (
@@ -109,33 +105,41 @@ export function CreateAccountForm() {
               Create your account
             </h1>
 
-            {formFields.map((field) => (
-              <div key={field.label} className="flex flex-col w-full mt-4">
-                {field.label === 'Date of birth' ? <h5 className='p-2 font-light'> {field.label}</h5> : " "}
-                <FloatingLabelInput
-                  id={`${field.label.toLowerCase()}-input`}
-                  label={field.label === 'Date of birth' ? " ": field.label}
-                  type={field.label === 'Date of birth' ? 'date' : 'text'}
-                  validateEmail={field.validateEmail || false}
-                  // onChange={(e) => setEmail(e.target.value)}
+            <div key="name" className="flex flex-col w-full mt-4">
+            <FloatingLabelInput
+                  id={`name`}  label="Name"  type='text' validateEmail={ false}
+                  value={name}
+                  onChange={setName}
+                  onValidate={setIsNameValid}
                   className="w-full px-4 py-6 bg-black rounded-md border border-solid border-neutral-500 text-white"
                 />
-                {field.hasInfo && (
-                  <div className="text-xs mt-2 max-md:ml-1" aria-live="polite">
-                    {field.info}
-                  </div>
-                )}
-              </div>
-            ))}
+            </div>
+            <div key="email" className="flex flex-col w-full mt-4">
+            <FloatingLabelInput
+                  id={`email`}  label="Email"  type='email' validateEmail={ true}
+                  value={email}
+                  onChange={setEmail}
+                  onValidate={setIsEmailValid}
+                  className="w-full px-4 py-6 bg-black rounded-md border border-solid border-neutral-500 text-white"
+                />
+            </div>
 
-            <button
-              type="submit"
-              className="px-12 py-3 mt-14 font-extrabold text-black whitespace-nowrap bg-neutral-500 rounded-[100px] hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-300 max-md:px-5 max-md:mt-10 max-md:max-w-full"
-              aria-label="Create account"
-              onClick={() => {
-                handleClick();
-              }}
-            >
+            <div key="Date of birth" className="flex flex-col w-full mt-4">
+            <h5 className='p-2 font-light'> Date of birth</h5>
+            <FloatingLabelInput
+                  id={`Date of birth`}  label=""  type='date' validateEmail={ false}
+                  value={date}
+                  onChange={setDate}
+                  onValidate={setIsDateValid}
+                  className="w-full px-4 py-6 bg-black rounded-md border border-solid border-neutral-500 text-white"
+                />
+                <div className="text-xs mt-2 max-md:ml-1" aria-live="polite">
+                This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.
+                  </div>
+            </div>
+
+
+            <button type="submit" className={`px-12 py-3 mt-4 font-extrabold text-black whitespace-nowrap rounded-[100px] focus:outline-none focus:ring-2 focus:ring-neutral-300 ${isFilled ? 'bg-white' : 'bg-neutral-500'}`} disabled={!isFilled} onClick={handleClick} >
               Next
             </button>
           </form>

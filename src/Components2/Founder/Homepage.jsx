@@ -1,4 +1,4 @@
-import { Home, Search, Users, Package, Heart, Settings, MoreHorizontal } from 'lucide-react'
+import { AiOutlineSearch } from 'react-icons/ai'; import { FiMoreHorizontal } from 'react-icons/fi';
 import logo1 from "../../assets/logo1.png"
 export default function HomePage() {
   return (
@@ -50,7 +50,7 @@ export default function HomePage() {
                 </div>
               </div>
               <button className="p-2 hover:bg-gray-800 rounded-full transition-colors">
-                <MoreHorizontal className="h-5 w-5" />
+                <FiMoreHorizontal className="h-5 w-5" />
               </button>
             </div>
             <div className="mt-4 rounded-lg bg-gray-800 p-6 text-center">
@@ -63,7 +63,7 @@ export default function HomePage() {
 
         <aside className="w-80 space-y-6 py-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <AiOutlineSearch size={24}  className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
             <input
               type="text"
               placeholder='Ask "Geet"'
@@ -104,7 +104,7 @@ export default function HomePage() {
                   <img src={item.image} alt="" width={40} height={40} className="rounded" />
                   <p className="flex-1 text-sm">{item.title}</p>
                   <button className="p-2 hover:bg-gray-800 rounded-full transition-colors">
-                    <MoreHorizontal className="h-4 w-4" />
+                    <FiMoreHorizontal className="h-4 w-4" />
                   </button>
                 </div>
               ))}
