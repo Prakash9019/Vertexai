@@ -77,9 +77,22 @@ const FounderLayout = () => {
           {item.label}
         </button>
       ))}
+
+
+          <div className="flex flex-col items-center justify-center mt-6 mb-0 space-y-2">
+             <button className="px-10 py-2  mt-12 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-colors">
+              Flow
+              </button>
+              <button className={`w-full flex justify-start flex-col items-start px-4 py-2 rounded hover:bg-gray-100 text-white  hover:bg-gray-400`}>
+                <div className="flex items-center">
+                  <span>⚡</span>
+                  <span className="ml-2">Upgrade plan</span>
+                </div>
+                <span className="text-sm text-muted-foreground">Get access to all tools</span>
+              </button>
+            </div>
     </nav>
         </aside>
-           
 
         {/* <main className="flex-1 space-y-6"> */}
         <Outlet />
