@@ -165,6 +165,8 @@ export default function PricingPage() {
               onClick={() => handlePlanClick(plan)}
             >
               <h3 className="text-2xl font-bold mb-4">{plan.name}</h3>
+
+              
               <div className="mb-4">
                 <span className="text-4xl font-bold">
                   ${!isAnnual ? plan.price.annually  : plan.price.monthly}
@@ -220,15 +222,16 @@ export default function PricingPage() {
                <h3 className="text-2xl font-bold mb-4">{selectedPlan.name}</h3>
               <div className="mb-4">
                 <span className="text-4xl font-bold">
-                  ${!isAnnual ? selectedPlan.price.annually  : selectedPlan.price.monthly}
+                  ${!isAnnual ? selectedPlan.price.annually  : selectedPlan.price.monthly*12}
                 </span>
-                <span className="text-gray-400">/month</span>
+                <span className="text-gray-400"> {!isAnnual ? "/month" :"/year"}</span>
               </div>
               <div className="mb-6 text-sm">
-                ${selectedPlan.savings} saved annually
+                {!isAnnual ?  <p> ${selectedPlan.savings} saved annually
                 <span className="ml-2 bg-white/20 px-2 py-1 rounded-full text-xs">
                   SAVE {selectedPlan.name === "Creator" ? "10%" : "20%"}
-                </span>
+                </span> </p> : <p>Billed annually</p>}
+               
               </div>
                  </div>
 
