@@ -7,6 +7,7 @@ function AuthLayout() {
   const navigate = useNavigate();
 
   const handleClick=()=>{
+    console.log("helllooooo")
           navigate("/newaccount");
   }
 
@@ -20,12 +21,6 @@ function AuthLayout() {
     const handleClose = () => {
       setIsOpen(false);
     };
-
-  const authButtons = [
-    { text: "Sign up with credentials", variant: "outline" },
-    { text: "Create account", variant: "filled" },
-    { text: "Log in", variant: "outline" }
-  ];
 
   function Button({ children, variant = "default" }) {
     const baseStyles = "w-1/2 m-3 px-3 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none";
@@ -115,7 +110,7 @@ function AuthLayout() {
         <h1 className="self-center mb-6 text-6xl tracking-tighter max-md:text-4xl max-md:mb-5">
           Join today.
         </h1>
-        <button className=" w-1/3 m-3 px-3 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white" onClick={handleClick1()}> Sign up with credentials </button>
+        <button className=" w-1/3 m-3 px-3 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white" onClick={()=>{handleClick1()}}> Sign up with credentials </button>
         <div className="flex gap-3.5 items-center text-base whitespace-nowrap">
           <div className="shrink-0 self-stretch my-auto h-0 border border-white border-solid w-[158px]" />
           <div className="self-stretch">or</div>
@@ -146,62 +141,7 @@ function AuthLayout() {
   </div>
 )}
 
-    
-
-
-
   </>
-
-
-
-    //   <div className="flex gap-5 max-md:flex-col">
-    //     <div className="flex flex-col w-[59%] max-md:ml-0 max-md:w-full">
-    //       <div className="flex flex-col grow justify-center items-start px-20 py-64 w-full bg-white max-md:px-5 max-md:py-24 max-md:mt-10 max-md:max-w-full">
-    //         <img
-    //           loading="lazy"
-    //           src="https://cdn.builder.io/api/v1/image/assets/TEMP/331400dd77035a0f58b2397574fd118acdec94e843ceaacbe7b6d4cc8ae6c899?placeholderIfAbsent=true&apiKey=42bb954c825745999302100cb42c8fd0"
-    //           alt="Authentication logo"
-    //           className="object-contain max-w-full aspect-[0.95] w-[200px]"
-    //         />
-    //       </div>
-    //     </div>
-    //     <div className="flex flex-col ml-5 w-[41%] max-md:ml-0 max-md:w-full">
-    //       <form 
-    //         className="flex flex-col self-stretch my-auto w-full text-xl font-extrabold text-white max-md:mt-10"
-    //         onSubmit={(e) => e.preventDefault()}
-    //       >
-    //         <h1 className="self-center text-5xl tracking-tighter max-md:text-4xl">
-    //           Join today.
-    //         </h1>
-            
-    //         {authButtons.map(renderAuthButton)}
-            
-    //         <div className="flex gap-3.5 items-center mt-2 text-base whitespace-nowrap">
-    //           <div className="shrink-0 self-stretch my-auto h-0 border border-white border-solid w-[158px]" />
-    //           <div className="self-stretch">or</div>
-    //           <div className="shrink-0 self-stretch my-auto h-0 border border-white border-solid w-[158px]" />
-    //         </div>
-
-    //         <p className="mt-3 text-sm">
-    //           By signing up, you agree to the{" "}
-    //           <a href="#terms" className="underline focus:ring-2 focus:ring-white">
-    //             Terms of Service
-    //           </a> and{" "}
-    //           <a href="#privacy" className="underline focus:ring-2 focus:ring-white">
-    //             Privacy Policy
-    //           </a>, including{" "}
-    //           <a href="#cookies" className="underline focus:ring-2 focus:ring-white">
-    //             Cookie Use.
-    //           </a>
-    //         </p>
-            
-    //         <p className="self-start mt-24 max-md:mt-10">
-    //           Already have an account?{" "}
-    //         </p>
-    //       </form>
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
 

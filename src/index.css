@@ -71,7 +71,8 @@
   
 
   body {
-    background-color: hsl(var(--background));
+    /* background-color: hsl(var(--background)); */
+    background-color: black;
     color: hsl(var(--foreground));
   }
 

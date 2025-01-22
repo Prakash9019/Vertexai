@@ -69,7 +69,7 @@ export function CreateAccountForm() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/username');
+    navigate('/verify');
   };
 
   const handleSubmit = (e) => {

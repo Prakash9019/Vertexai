@@ -1,5 +1,6 @@
 import { useState } from "react";
 import logo1 from "../assets/logo1.png";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   "Aerospace",  "Agriculture",  "Adtech",  "Analytics",  "B2B/B2C",
@@ -11,7 +12,7 @@ const categories = [
 
 export default function CategorySelection() {
   const [selectedCategories, setSelectedCategories] = useState([]);
-
+  const navigate=useNavigate();
   const toggleCategory = (category) => {
     setSelectedCategories((prev) =>
       prev.includes(category)
@@ -19,6 +20,10 @@ export default function CategorySelection() {
         : [...prev, category]
     );
   };
+
+  const handleClick2 = () => {
+    navigate('/founder')
+  }
 
   return (
     <div className="flex flex-col text-xl font-semibold text-white bg-black min-h-screen">
@@ -74,9 +79,11 @@ export default function CategorySelection() {
 
             {/* Selected Count */}
             <div className="text-center">
-              <p className="text-gray-400">
+              {/* <p className="text-gray-400">
                 Selected: {selectedCategories.length} / 5 minimum
-              </p>
+              </p> */}
+                 <button className="px-16 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 bg-white transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-black" onClick={ handleClick2}>Next</button>
+      
             </div>
           </div>
         </div>

@@ -11,6 +11,8 @@ import { CreateAccountForm } from './New_Account/NewAccount';
 import Username from './New_Account/Username';
 import CategorySelection from './New_Account/CatSection';
 import { Signin } from './Components2/Signin';
+import Verify from './New_Account/Verify';
+import Setpassword from './New_Account/Setpassword';
 
 
 const App = () => {
@@ -22,6 +24,8 @@ const App = () => {
         <Route path="/main" element={<VertxLanding /> } />
         <Route path="/" element={<LandingHero />} />
         <Route path='/geet' element={<Geet />} />
+        <Route path='/verify' element={<Verify />} />
+        <Route path="/setpassword" element={<Setpassword />} />
         <Route path="/founder/*" element={<FounderPage />} />
         {/* <Route path='/founder/home' element={<VertxInterface />} /> */}
         <Route path='/signup' element={ <JoinSection />} />
