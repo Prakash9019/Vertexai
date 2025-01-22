@@ -1,7 +1,9 @@
 import * as React from "react";
 import { useState, useRef } from "react";import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function Setpassword() {
+  const navigate=useNavigate();
   const [code, setCode] = useState(Array(6).fill(""));
   const inputRefs = useRef([]);
   const [isFocused, setIsFocused] = useState(false);
@@ -31,7 +33,9 @@ export default function Setpassword() {
 
   const handleSubmit = () => {
     const verificationCode = code.join("");
-    alert(`Entered Code: ${verificationCode}`);
+    // alert(`Entered Code: ${verificationCode}`);
+    navigate('/profile');
+
   };
 
   const isCodeComplete = code.every((digit) => digit !== "");
@@ -91,7 +95,7 @@ export default function Setpassword() {
                   type={isPasswordVisible ? "text" : "password"}
                   value={password}
                   minLength={8}
-                  className="flex-grow bg-transparent text-white border-none"
+                  className="flex-grow bg-transparent text-white text-xl focus:outline-none focus:ring-0"
                   onChange={(e) => setPassword(e.target.value)}
                   onFocus={() => setIsFocused(true)}
                   onBlur={() => {
@@ -108,19 +112,6 @@ export default function Setpassword() {
                 </button>{" "}
               </div>{" "}
             </div>
-
-            {/* <p className="mt-3 text-sm w-1/2 font-normal	tracking-normal ">
-              By signing up, you agree to the{" "}
-              <a href="#terms" className="underline ">
-                Terms of Service
-              </a> and{" "}
-              <a href="#privacy" className="underline ">
-                Privacy Policy
-              </a>, including{" "}
-              <a href="#cookies" className="underline ">
-                Cookie Use.
-              </a>
-            </p> */}
           </div>
           <p className="mt-20 text-sm font-normal	tracking-normal text-neutral-500">
             By signing up, you agree to the{" "}
@@ -137,9 +128,13 @@ export default function Setpassword() {
           </p>
           <button
             onClick={handleSubmit}
-            className={`px-12 py-3 mt-60 text-xl font-extrabold text-black whitespace-nowrap rounded-[100px] max-md:px-5 max-md:mt-10 max-md:mr-2.5 max-md:max-w-full ${
-              isCodeComplete ? "bg-white" : "bg-neutral-500"
-            }`}
+            className={`px-12 py-3 mt-60 text-xl font-extrabold text-black whitespace-nowrap rounded-[100px] max-md:px-5 max-md:mt-10 max-md:mr-2.5 max-md:max-w-full 
+              
+              ${
+              isCodeComplete ? "bg-white" : "bg-white"
+            }`
+          
+          }
           >
             Sign up
           </button>

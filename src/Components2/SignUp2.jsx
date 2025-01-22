@@ -135,7 +135,7 @@ function AuthLayout() {
         <p className="self-center mt-24 max-md:mt-10">
           Already have an account?{" "}
         </p>
-        <button className="w-1/3 m-3 px-3 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white" >Log in</button>
+        <button className="w-1/3 m-3 px-3 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white" onClick={()=>{handleClick1()}}>Log in</button>
       </div>
     </div>
   </div>

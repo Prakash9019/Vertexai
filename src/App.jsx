@@ -13,6 +13,8 @@ import CategorySelection from './New_Account/CatSection';
 import { Signin } from './Components2/Signin';
 import Verify from './New_Account/Verify';
 import Setpassword from './New_Account/Setpassword';
+import ProfilePictureUpload from './New_Account/Profile';
+import PricingPage from './Components2/Founder/Subscription';
 
 
 const App = () => {
@@ -27,6 +29,8 @@ const App = () => {
         <Route path='/verify' element={<Verify />} />
         <Route path="/setpassword" element={<Setpassword />} />
         <Route path="/founder/*" element={<FounderPage />} />
+        <Route path='/profile' element={<ProfilePictureUpload /> } />
+        <Route path='/pricingpage' element={<PricingPage /> } />
         {/* <Route path='/founder/home' element={<VertxInterface />} /> */}
         <Route path='/signup' element={ <JoinSection />} />
         <Route path="/new" element={<CreateAccountForm /> } />
