@@ -15,6 +15,7 @@ import Verify from './New_Account/Verify';
 import Setpassword from './New_Account/Setpassword';
 import ProfilePictureUpload from './New_Account/Profile';
 import PricingPage from './Components2/Founder/Subscription';
+import VertxInterface from './Components2/Founder/Homepage';
 
 
 const App = () => {
@@ -28,7 +29,8 @@ const App = () => {
         <Route path='/geet' element={<Geet />} />
         <Route path='/verify' element={<Verify />} />
         <Route path="/setpassword" element={<Setpassword />} />
-        <Route path="/founder/*" element={<FounderPage />} />
+        {/* <Route path="/founder/*" element={<FounderPage />} /> */}
+        <Route path="/founder" element={<VertxInterface />} />
         <Route path='/profile' element={<ProfilePictureUpload /> } />
         <Route path='/pricingpage' element={<PricingPage /> } />
         {/* <Route path='/founder/home' element={<VertxInterface />} /> */}

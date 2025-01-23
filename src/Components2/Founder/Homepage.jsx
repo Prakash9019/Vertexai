@@ -1,5 +1,5 @@
 // import { AiOutlineSearch } from 'react-icons/ai'; import { FiMoreHorizontal } from 'react-icons/fi';
-// import logo1 from "../../assets/logo1.png"
+import logo1 from "../../assets/logo1.png"
 // export default function HomePage() {
 //   return (
 //       <>
@@ -177,7 +177,7 @@ export default function VertxInterface() {
       <header className="border-b border-zinc-800 p-4 fixed top-0 w-full bg-black z-50">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-3fAWMfoT8VDHOSAXYyRhEnIy3UcHj2.png"
+            src={logo1}
             alt="Vertx Logo"
             className="h-8"
           />

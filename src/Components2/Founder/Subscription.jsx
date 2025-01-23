@@ -173,12 +173,14 @@ export default function PricingPage() {
                 </span>
                 <span className="text-gray-400">/month</span>
               </div>
+
+              {!isAnnual ?  <p className="mb-6 text-sm"> Billed monthly </p> :
               <div className="mb-6 text-sm">
                 ${plan.savings} saved annually
                 <span className="ml-2 bg-white/20 px-2 py-1 rounded-full text-xs">
                   SAVE {plan.name === "Creator" ? "10%" : "20%"}
                 </span>
-              </div>
+              </div>}
 
               {/* <ul className="space-y-3">
                 {" "}
