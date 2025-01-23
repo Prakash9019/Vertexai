@@ -187,10 +187,71 @@ export function Signin() {
    
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Implement further logic for handling the form submission
-  };
+  // const [credentials, setCredentials] = useState({email: "", password: ""}) 
+   
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        // console.log(e);
+        if(password) { 
+          try {
+            const response = await axios.post('https://vertxai-backend.vercel.app/api/auth/login', {
+              email: email,
+              password: password,
+            });
+      
+            const json = response.data;
+            // console.log(json);
+      
+            // Save the token to localStorage
+            localStorage.setItem('jwtData', json.jwtData);
+      
+            // Navigate to the next screen or perform other actions
+            console.log('Token saved:', json.jwtData);
+          
+      //  console.log(json.sucess);
+        if (json.sucess){
+            toast("Login Successfully");
+            navigate('/categories');
+
+        }
+        else{
+           // console.log(response);
+            toast(json.errors[0].msg);
+            
+        }
+    }
+        catch (error) {
+            console.error('Error during login:', error.message);
+            // Handle login failure, show an alert, etc.
+          }
+          navigate('/categories')}
+       else{
+        try {
+          const response = await fetch('https://vertxai-backend.vercel.app/api/checkUser', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email }),
+          });
+          const data = await response.json();
+          if (data.exists) {
+            setShowPassword(true);
+            setErrorMessage('');
+          } else {
+            setErrorMessage('User does not exist');
+            setShowPassword(false);
+          }
+        } catch (error) {
+          console.error('Error checking user:', error);
+          setErrorMessage('An error occurred. Please try again.');
+        }
+
+         setShowPassword(true);
+       }
+   
+    }
+
 
   return (
     <div className="flex flex-col text-xl font-semibold text-white bg-black min-h-screen">
@@ -235,12 +296,12 @@ export function Signin() {
             )}
 
             <button
-              type="button"
+               type="submit"
               className={`px-12 py-3 mt-4 font-extrabold text-black whitespace-nowrap rounded-[100px] focus:outline-none focus:ring-2 focus:ring-neutral-300 ${
                 isFilled ? 'bg-white' : 'bg-neutral-500'
               }`}
               disabled={!isFilled}
-              onClick={handleClick}
+              onClick={handleSubmit}
             >
               Next
             </button>
