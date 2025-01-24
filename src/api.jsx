@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5000/api/auth" });
+const API = axios.create({ baseURL: "https://vertxai-backend.vercel.app/api/auth" });
 
 export const registerUser = (data) => API.post("/register", data);
 export const verifyEmail = (token) => API.get(`/verify/${token}`);

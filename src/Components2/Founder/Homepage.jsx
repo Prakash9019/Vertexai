@@ -259,6 +259,16 @@ export default function VertxInterface() {
       title: "M2P Fintech Secures $101 Million",
       image: "/placeholder.svg?height=48&width=48",
     },
+    {
+      id: 5,
+      title: "M2P Fintech Secures $101 Million",
+      image: "/placeholder.svg?height=48&width=48",
+    },
+    {
+      id: 6,
+      title: "M2P Fintech Secures $101 Million",
+      image: "/placeholder.svg?height=48&width=48",
+    },
   ]
 
   return (
@@ -309,8 +319,8 @@ export default function VertxInterface() {
         </nav>
 
         {/* Main Content */}
-        <main className="fixed left-[20%] w-[47.25%] top-16 pt-5 bottom-0 overflow-y-auto border-r-4 border-zinc-800 z-30">
-          {/* Post Creation */}
+        <main className="fixed left-[20%] w-[47.25%] top-16 pt-5 bottom-0 overflow-y-auto border-r-4 border-zinc-800 z-30 hide-scrollbar">
+        {/* Post Creation */}
 
 
 
@@ -386,7 +396,7 @@ export default function VertxInterface() {
               <input type="text" placeholder='Ask "Geet"' className="bg-transparent outline-none flex-1" />
             </div>
 
-            <div className="mt-8 bg-black rounded-xl h-[calc(100vh-180px)] overflow-auto border border-zinc-800">
+            <div className="mt-8 bg-black rounded-xl h-[calc(100vh-180px)] overflow-y-auto border-r-4 border-zinc-800 z-30 hide-scrollbar border border-zinc-800">
               <h2 className="text-xl font-bold mb-4 p-4">Recent roundup</h2>
               <div className="flex gap-4 mb-4 px-4">
                 <button
@@ -405,7 +415,7 @@ export default function VertxInterface() {
                 </button>
               </div>
               {recentNews.map((news) => (
-                <div key={news.id} className="flex items-center gap-3 p-3 hover:bg-zinc-900 cursor-pointer px-4">
+                <div key={news.id} className="flex items-center gap-3 p-3 hover:bg-zinc-900 overflow-y-auto border-r-4 border-zinc-800 z-30 hide-scrollbar border cursor-pointer px-4">
                   <img src={news.image || "/placeholder.svg"} alt="" className="w-12 h-12 rounded-lg" />
                   <p className="flex-1 font-medium">{news.title}</p>
                   <MoreHorizontal className="h-5 w-5" />
