@@ -3,10 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { VertxLanding } from './VertxLanding';
 import { LandingHero } from './opening';
 import Geet from './Components2/Founder/Geet';
-import FounderPage from './Components2/Founder/FounderPage';
 import { JoinSection } from './Components2/SignUp';
 import AuthLayout from './Components2/SignUp2';
-import AuthFlow from './Components2/Dialog';
 import { CreateAccountForm } from './New_Account/NewAccount';
 import Username from './New_Account/Username';
 import CategorySelection from './New_Account/CatSection';
@@ -17,31 +15,40 @@ import ProfilePictureUpload from './New_Account/Profile';
 import PricingPage from './Components2/Founder/Subscription';
 import VertxInterface from './Components2/Founder/Homepage';
 import OutreachPage from './Components2/Founder/Outreach';
-
+import { AuthProvider } from "./AuthContext";
+import ProtectedRoute from "./ProtectedRoute";
+import FounderPage from './Components2/Founder/FounderPage';
 
 const App = () => {
   return (
-    
+    <AuthProvider>
     <Router>
       
       <Routes>
         <Route path="/main" element={<VertxLanding /> } />
         <Route path="/" element={<LandingHero />} />
-        <Route path='/geet' element={<Geet />} />
-        <Route path='/outreach' element={<OutreachPage />} />
-        <Route path='/verify' element={<Verify />} />
-        <Route path="/setpassword" element={<Setpassword />} />
-        <Route path="/founder" element={<VertxInterface />} />
-        <Route path='/profile' element={<ProfilePictureUpload /> } />
-        <Route path='/pricingpage' element={<PricingPage /> } />
         <Route path='/signup' element={ <JoinSection />} />
         <Route path='/signup1' element={<AuthLayout/>} />
         <Route path='/signin' element={<Signin/>} />
-        <Route path='/newaccount' element={<CreateAccountForm /> } />
+         {/* new account */}
+         <Route path='/newaccount' element={<CreateAccountForm /> } />
+        <Route path='/verify' element={<Verify />} />
+        <Route path="/setpassword" element={<Setpassword />} />
+        <Route path='/profile' element={<ProfilePictureUpload /> } />
         <Route path='/username' element={<Username /> } />
         <Route path='/categories' element={<CategorySelection /> } />
+        {/* account creating completed */}
+
+        <Route path="/founder/*" element={<FounderPage />} />
+        <Route path='/pricingpage' element={ <ProtectedRoute> <PricingPage /> </ProtectedRoute>  } />
+       <Route path='/outreach' element={<OutreachPage />} />
+
+
+        {/* not used */}
+        <Route path='/geet' element={<Geet />} />
       </Routes>
     </Router>
+    </AuthProvider>
   );
 };
 

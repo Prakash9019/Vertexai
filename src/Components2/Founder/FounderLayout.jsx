@@ -1,4 +1,22 @@
-import React,{useState} from 'react';
+import logo2 from "../../assets/logohome.png"
+import logo1 from "../../assets/logo1.png"
+
+import { useState } from "react"
+import { MdOutlineVerified } from "react-icons/md";
+import {
+  Home,
+  Search,
+  Users,
+  Heart,
+  Shield,
+  MoreHorizontal,
+  Image,
+  FileImageIcon as FileGif,
+  List,
+  BadgeCheck,
+  Smile,
+  ChevronDown,
+} from "lucide-react"
 // import { Home, Search, Users, Package, Heart, Settings, MoreHorizontal, House } from 'lucide-react'
 import { FaHome, FaSearch, FaUsers, FaBox, FaHeart, FaCog, FaEllipsisH } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -8,16 +26,17 @@ import { Link, Outlet } from 'react-router-dom';
 const FounderLayout = () => {
   const [activeIndex, setActiveIndex] = useState(0); // To track the active button
   const navigate = useNavigate();
-
-  const menuItems = [
-    { icon: FaHome, label: "Home", route: "/home" },
-    { icon: FaSearch, label: "Explore", route: "/explore" },
-    { icon: FaUsers, label: "Outreach", route: "/outreach" },
-    { icon: FaBox, label: "Showcase", route: "/showcase" },
-    { icon: FaHeart, label: "Activity", route: "/activity" },
-    { icon: FaCog, label: "Get verified", route: "/get-verified" },
-    { icon: FaEllipsisH, label: "More", route: "/more" },
-  ];
+  const [activeNav, setActiveNav] = useState("home")
+  const [activeTab, setActiveTab] = useState("all")
+  const [activeFeed, setActiveFeed] = useState("trending")
+  const navItems = [
+    { id: "home", label: "Home", icon: Home,path:"/founder" },
+    { id: "explore", label: "Explore", icon: Search ,path: '/founder/outreach'},
+    { id: "outreach", label: "Outreach", icon: Users },
+    { id: "activity", label: "Activity", icon: Heart },
+    { id: "verified", label: "Get verified", icon: BadgeCheck },
+    { id: "more", label: "More", icon: MoreHorizontal },
+  ]
 
   const handleClick = (index, route) => {
     setActiveIndex(index); // Set the clicked button as active
@@ -27,72 +46,66 @@ const FounderLayout = () => {
 
   return (
     
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white font-['Manrope']">
       {/* Top Navigation */}
-      <header className="border-b border-gray-800">
-        <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img
-              src={logo}
+     
+
+
+
+
+ <header className="border-b-2 border-zinc-800 p-4 fixed top-0 left-0 right-0 bg-black z-50">
+        <div className="max-w-full mx-auto flex justify-between items-center">
+          <img
+            src={logo}
               alt="Vertx Logo"
-              width={32}
-              height={32}
-              className="object-contain aspect-square w-[100px]"
-            />
-            {/* <span className="text-xl font-bold">VERTX</span> */}
-          </div>
-          <div className="flex items-center gap-4">
-            <button className="px-4 py-2 rounded-md border border-gray-700 text-gray-400 hover:bg-gray-800 transition-colors">
-              Upgrade
-            </button>
-            <button className="px-4 py-2 rounded-md border border-gray-700 text-gray-400 hover:bg-gray-800 transition-colors">
-              Submit
-            </button>
-            <button className="px-4 py-2 rounded-md bg-white text-black hover:bg-gray-200 transition-colors">
-              Join
-            </button>
+            className="h-8"
+          />
+          <div className="flex gap-4">
+            <button className="rounded-full px-6 py-2 border border-zinc-700 hover:bg-zinc-900" onClick={() => {handleClick()}}>Upgrade</button>
+            <button className="rounded-full px-6 py-2 border border-zinc-700 hover:bg-zinc-900">Submit</button>
+            <button className="rounded-full px-6 py-2 bg-white text-black hover:bg-zinc-200">Edit</button>
           </div>
         </div>
       </header>
 
-      <div className="container flex gap-6 px-4 max-w-full ">
+
+
+
+
+
+
+      <div className="pt-16 flex">
         {/* Left Sidebar */}
-        <aside className="w-64 space-y-4 py-4 border-r border-gray-800 last:border-none">
-        <nav className="space-y-2">
-      {menuItems.map((item, index) => (
-        <button
-          key={index}
-          className={`flex w-full items-center gap-2 px-4 py-2 text-left rounded-lg transition-colors ${
-            activeIndex === index
-              ? 'text-white bg-gray-800' // Active button styles
-              : 'text-gray-300 hover:bg-gray-800'
-          }`}
-          onClick={() => handleClick(index, item.route)}
-        >
-          <item.icon
-            className={`h-5 w-5 transition-colors duration-200 ${
-              activeIndex === index ? 'fill-white text-white' : ' text-gray-500'
-            }`}
-          />
-          {item.label}
-        </button>
-      ))}
+        <nav className="w-[20%] fixed left-0 top-16 pt-5 bottom-0 border-r-2 border-zinc-800 flex flex-col justify-between bg-black z-40">
+          <div>
+            {navItems.map((item) => {
+              const Icon = item.icon
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => {setActiveNav(item.id);  navigate(item.path)} }
+                  className={`w-full flex items-center gap-3 p-3 rounded-full hover:bg-zinc-900 relative
+                    ${activeNav === item.id ? "font-bold before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-white before:rounded-full" : ""}`}
+                >
+                  <Icon className="h-5 w-5" />
+                  {item.label}
+                </button>
+              )
+            })}
+          </div>
 
+          <div className="p-4">
+            <button className="w-full rounded-full bg-white text-black py-3 font-bold mb-4">Flow</button>
+            <button className="w-full rounded-full border border-zinc-700 py-3 flex items-center justify-center gap-2">
+            <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.33329 14.6667L5.99996 10H2.66663L8.66663 1.33334H9.99996L9.33329 6.66668H13.3333L6.66663 14.6667H5.33329Z" fill="white"/>
+</svg>
+</span>
+              Upgrade plan
+            </button>
+          </div>
+        </nav>
 
-          <div className="flex flex-col items-center justify-center mt-6 mb-0 space-y-2">
-             <button className="px-10 py-2  mt-12 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-colors">
-              Flow
-              </button>
-              <button className={`w-full flex justify-start flex-col items-start px-4 py-2 rounded hover:bg-gray-100 text-white  hover:bg-gray-400`}>
-                <div className="flex items-center">
-                  <span>⚡</span>
-                  <span className="ml-2">Upgrade plan</span>
-                </div>
-                <span className="text-sm text-muted-foreground">Get access to all tools</span>
-              </button>
-            </div>
-    </nav>
-        </aside>
 
         {/* <main className="flex-1 space-y-6"> */}
         <Outlet />
