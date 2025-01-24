@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import { registerUser } from "../api";
 
 const FloatingLabelInput = ({ id, label, type = 'text', maxLength = 50, validateEmail = false, value, onChange, onValidate, className = '' }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -72,8 +74,15 @@ export function CreateAccountForm() {
     navigate('/verify');
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+      try {
+          const response = await registerUser(data);
+          alert(response.data.message); // Success message
+      } catch (error) {
+          alert(error.response.data.message || "Something went wrong");
+      }
   };
 
 
@@ -91,7 +100,7 @@ export function CreateAccountForm() {
       <div className="flex flex-col justify-center items-center px-20 py-10 w-full bg-white bg-opacity-10 max-md:px-5 max-md:max-w-full">
         <div className="flex flex-col justify-center items-center px-20 py-9 max-w-full bg-black rounded-3xl w-[875px] max-md:px-5">
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col max-w-full w-[485px]"
             noValidate
           >

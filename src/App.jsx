@@ -35,7 +35,6 @@ const App = () => {
         <Route path='/pricingpage' element={<PricingPage /> } />
         {/* <Route path='/founder/home' element={<VertxInterface />} /> */}
         <Route path='/signup' element={ <JoinSection />} />
-        <Route path="/new" element={<CreateAccountForm /> } />
         <Route path='/signup1' element={<AuthLayout/>} />
         <Route path='/signin' element={<Signin/>} />
         <Route path='/newaccount' element={<CreateAccountForm /> } />
