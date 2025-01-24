@@ -16,6 +16,7 @@ import Setpassword from './New_Account/Setpassword';
 import ProfilePictureUpload from './New_Account/Profile';
 import PricingPage from './Components2/Founder/Subscription';
 import VertxInterface from './Components2/Founder/Homepage';
+import OutreachPage from './Components2/Founder/Outreach';
 
 
 const App = () => {
@@ -27,13 +28,12 @@ const App = () => {
         <Route path="/main" element={<VertxLanding /> } />
         <Route path="/" element={<LandingHero />} />
         <Route path='/geet' element={<Geet />} />
+        <Route path='/outreach' element={<OutreachPage />} />
         <Route path='/verify' element={<Verify />} />
         <Route path="/setpassword" element={<Setpassword />} />
-        {/* <Route path="/founder/*" element={<FounderPage />} /> */}
         <Route path="/founder" element={<VertxInterface />} />
         <Route path='/profile' element={<ProfilePictureUpload /> } />
         <Route path='/pricingpage' element={<PricingPage /> } />
-        {/* <Route path='/founder/home' element={<VertxInterface />} /> */}
         <Route path='/signup' element={ <JoinSection />} />
         <Route path='/signup1' element={<AuthLayout/>} />
         <Route path='/signin' element={<Signin/>} />

@@ -276,7 +276,7 @@ export default function VertxInterface() {
   return (
     <div className="min-h-screen bg-black text-white font-['Manrope']">
       {/* Header */}
-      <header className="border-b-4 border-zinc-800 p-4 fixed top-0 left-0 right-0 bg-black z-50">
+      <header className="border-b-2 border-zinc-800 p-4 fixed top-0 left-0 right-0 bg-black z-50">
         <div className="max-w-full mx-auto flex justify-between items-center">
           <img
             src={logo1}
