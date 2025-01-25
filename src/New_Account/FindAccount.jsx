@@ -51,25 +51,25 @@ export default function FindAccount() {
               alt="User setup logo"
               className="object-contain aspect-square w-[60px]"
             />
-            <h1 className="mt-7 text-4xl">Choose identifier</h1>
+            <h1 className="mt-7 text-4xl">Find your Vertx account</h1>
             <p className="mt-1.5 text-base font-medium text-neutral-500">
-              your identifier is unique. You can change it later.
+            Enter the username, email address or vertxuid associated with your account to change your password.
             </p>
             <form className="w-full" onSubmit={(e) => e.preventDefault()}>
               <div className="relative mt-14 max-md:mt-10">
                 <label htmlFor="identifier" className="sr-only">
-                  Choose your identifier
+                username, email address, or vertxuid
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter your identifier"
-                  name="identifier"
+                  placeholder="username, email address, or vertxuid"
+                  name="username, email address, or vertxuid"
                   value={identifier}
                    
                   onChange={handleidentifierChange}
                   className="w-full bg-black rounded-md border border-solid border-neutral-500 h-[74px] px-4 text-xl focus:outline-none focus:border-white focus:ring-2 focus:ring-white"
                   aria-label="identifier input"
-                  autoComplete="identifier"
+                  autoComplete="username, email address, or vertxuid"
                 />
                  {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
               </div>
@@ -79,7 +79,7 @@ export default function FindAccount() {
                 className="w-full px-12 py-3 mt-80 text-xl bg-black border border-white border-solid rounded-[100px] hover:bg-white hover:text-black transition-colors duration-200 max-md:px-5 max-md:mt-10"
                 aria-label="Skip identifier selection"
               >
-                Set identifier
+                Next
               </button>
             </form>
           </div>

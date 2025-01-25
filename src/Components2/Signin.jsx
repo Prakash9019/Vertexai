@@ -2,8 +2,7 @@ import { useState, useEffect,useContext  } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import { loginUser,checkUser } from "../api";
 import { AuthContext } from "../AuthContext";
-import { TbRuler } from 'react-icons/tb';
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const FloatingLabelInput = ({ id, label, type = 'text', maxLength = 50, validateidentifier = false, value, onChange, onValidate, className = '' }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -75,6 +74,11 @@ export function Signin() {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+   const [isFocused, setIsFocused] = useState(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const togglePasswordVisibility = () => {
+      setIsPasswordVisible(!isPasswordVisible);
+    };
   const [isPasswordValid, setIsPasswordValid] = useState(false);
    const { login } = useContext(AuthContext);
    const location = useLocation();
@@ -202,7 +206,7 @@ export function Signin() {
 
             <div key="identifier" className="flex flex-col w-full mt-4">
             <FloatingLabelInput
-                  id={`identifier`}  label="identifier"  type='text' validateidentifier={ false}
+                  id={`identifier`}  label="username, email address, or vertxuid"  type='text' validateidentifier={ false}
                   value={identifier}
                   onChange={setidentifier}
                   onValidate={setIsidentifierValid}
@@ -211,18 +215,47 @@ export function Signin() {
             </div>
 
             {showPassword && (
-              <div key="password" className="flex flex-col w-full mt-4">
-                <FloatingLabelInput
-                  id="password"
-                  label="Password"
-                  type="password"
-                  value={password}
-                  onChange={setPassword} 
-                  onValidate={setIsPasswordValid} 
-                  validateidentifier={false}
-                  className="w-full px-4 py-7 bg-black rounded-md border border-solid border-neutral-500 text-xl text-white"
-                />
-              </div>
+               <div className="relative w-full mt-3">
+                            {" "}
+                            <label
+                              htmlFor="Password"
+                              onClick={() => {
+                                setIsFocused(true);
+                                document.getElementById("Password").focus();
+                              }}
+                              className={`absolute text-xl p-3 transition-all duration-200 ${
+                                isFocused || password
+                                  ? "top-[-6px] text-xs text-blue-500"
+                                  : "top-3 text-gray-500"
+                              }`}
+                            >
+                              {" "}
+                              Password{" "}
+                            </label>{" "}
+                            <div className="flex items-center w-full px-4 py-6 bg-black rounded-md border border-solid border-neutral-500">
+                              {" "}
+                              <input
+                                id="Password"
+                                type={isPasswordVisible ? "text" : "password"}
+                                value={password}
+                                minLength={8}
+                                className="flex-grow bg-transparent text-white text-xl focus:outline-none focus:ring-0"
+                                onChange={(e) => setPassword(e.target.value)}
+                                onFocus={() => setIsFocused(true)}
+                                onBlur={() => {
+                                  setIsFocused(false); // validateInput(value);
+                                }}
+                              />{" "}
+                              <button
+                                type="button"
+                                onClick={togglePasswordVisibility}
+                                className="ml-2 text-white"
+                              >
+                                {" "}
+                                {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}{" "}
+                              </button>{" "}
+                            </div>{" "}
+                          </div>
             )}
 
             {errorMessage && (

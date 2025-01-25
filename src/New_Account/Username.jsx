@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Username() {
   const [username, setUsername] = useState("");
-
+  const [error, setError] = useState('');
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
@@ -24,15 +24,20 @@ export default function Username() {
             body: JSON.stringify({ token, username }),
         });
 
-        if (!response.ok) {
-            throw new Error('Failed to register');
-        }
-
         const data = await response.json();
-        console.log(data);
+        if (!response.ok) {
+          const errorMessage = data.message || 'An unknown error occurred'; // Fallback message
+           throw new Error(errorMessage); // Throw dynamic erro   
+           }
+           if (data.user) {
+            setError('');
+        } else {
+            setError('User does not exist');
+        }
         navigate('/categories');
     } catch (error) {
         console.error("Submission failed:", error);
+        setError(error.message);
     }
     };
 
@@ -67,6 +72,7 @@ export default function Username() {
                   aria-label="Username input"
                   autoComplete="username"
                 />
+                 {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
               </div>
               <button
                 type="button"

@@ -54,7 +54,7 @@ export default function SetNewPassword() {
               Set password
             </div>
             <div className="mt-1.5 text-base font-medium text-neutral-500">
-              Make sure it’s 8 characters or more.
+            Enter the OTP sent to the mail associated with your account to change your password.
             </div>
             {/* <div className="flex flex-wrap gap-5 justify-between self-stretch mt-20 max-md:mt-10 max-sm:mb-0">
               {code.map((_, index) => (
@@ -113,19 +113,7 @@ export default function SetNewPassword() {
               </div>{" "}
             </div>
           </div>
-          <p className="mt-20 text-sm font-normal	tracking-normal text-neutral-500">
-            By signing up, you agree to the{" "}
-            <a className="text-white underline">Terms of Service </a> and{" "}
-            <a className="text-white underline">Privacy Policy,</a> including{" "}
-            <a className="text-white underline">Cookie Use.</a> Vertxai may use your
-            contact information, including your email address and phone number
-            for purposes outlined in our Privacy Policy, such as keeping your
-            account secure and personalising our services, including ads.{" "}
-            <a className="text-white underline">Learn more</a>. Others will be
-            able to find you by email address or phone number, when provided,
-            unless you choose otherwise{" "}
-            <a className="text-white underline">here.</a>
-          </p>
+        
           <button
             onClick={handleSubmit}
             className={`px-12 py-3 mt-60 text-xl font-extrabold text-black whitespace-nowrap rounded-[100px] max-md:px-5 max-md:mt-10 max-md:mr-2.5 max-md:max-w-full 

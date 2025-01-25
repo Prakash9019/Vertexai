@@ -83,10 +83,10 @@ export default function ConfirmAccount() {
                             className="object-contain aspect-square w-[60px]"
                         />
                         <div className="mt-7 text-4xl font-extrabold text-white">
-                            Verify your email
+                        Confirm your account
                         </div>
                         <div className="mt-1.5 text-base font-medium text-neutral-500">
-                            We sent a coder. Enter it below to verify your email.
+                        Enter the OTP sent to the mail associated with your account to change your password.
                         </div>
                         <div className="flex flex-wrap gap-5 justify-between self-stretch mt-20 max-md:mt-10 max-sm:mb-0">
                             {coder.map((_, index) => (
@@ -102,10 +102,10 @@ export default function ConfirmAccount() {
                                 />
                             ))}
                         </div>
-                        <div className="self-start mt-6 text-base font-semibold text-neutral-500 max-md:ml-1">
-                            Didn't receive an email?{" "}
+                        {/* <div className="self-start mt-6 text-base font-semibold text-neutral-500 max-md:ml-1">
+                            Didn't receive an otp?{" "}
                             <span className="font-extrabold text-white">Resend</span>
-                        </div>
+                        </div> */}
                     </div>
                     <button
                         onClick={handleSubmit}
