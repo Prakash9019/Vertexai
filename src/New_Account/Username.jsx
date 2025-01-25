@@ -10,7 +10,20 @@ export default function Username() {
   };
   const navigate = useNavigate();
 
-  const handleSkip = () => {
+  const handleSkip = async () => {
+    try {
+      const response = await fetch('https://vertxai-backend.vercel.app/api/auth/set-username', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username }),
+      });
+      const data = await response.json();
+      
+    } catch (error) {
+      console.error('Error checking user:', error.message);
+    }
     setUsername("");
     navigate("/categories");
   };

@@ -18,84 +18,32 @@ const ProfilePictureUpload = () => {
     document.getElementById("fileInput").click();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('https://vertxai-backend.vercel.app/api/auth/checkUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+      if (data.exists) {
+        setShowPassword(true);
+        setErrorMessage('');
+      } else {
+        setErrorMessage('User does not exist');
+        setShowPassword(false);
+      }
+    } catch (error) {
+      console.error('Error checking user:', error);
+      setErrorMessage('An error occurred. Please try again.');
+    }
     navigate('/username');
 
   };
 
   return (
-    // <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
-    //   <div className="w-full max-w-md p-6 bg-black rounded-lg">
-    //     {/* Logo */}
-    //     <div className="flex justify-center mb-4">
-    //       <svg
-    //         xmlns="http://www.w3.org/2000/svg"
-    //         className="h-10 w-10 text-white"
-    //         viewBox="0 0 24 24"
-    //         fill="none"
-    //         stroke="currentColor"
-    //         strokeWidth="2"
-    //         strokeLinecap="round"
-    //         strokeLinejoin="round"
-    //       >
-    //         <path d="M12 2l9 9-9 9-9-9 9-9z" />
-    //       </svg>
-    //     </div>
-
-    //     {/* Title */}
-    //     <h1 className="text-2xl font-bold text-center">Upload Profile Picture</h1>
-    //     <p className="text-center text-gray-400 mt-2">
-    //       Have a favourite picture? Upload it now.
-    //     </p>
-
-    //     {/* Profile Picture Placeholder */}
-        // <div className="relative flex justify-center items-center mt-6">
-        //   <div
-        //     className="h-36 w-36 bg-gray-600 rounded-full border-2 border-white flex items-center justify-center"
-        //     onClick={openFilePicker}
-        //   >
-        //     {profilePic ? (
-        //       <img
-        //         src={profilePic}
-        //         alt="Profile"
-        //         className="h-full w-full rounded-full object-cover"
-        //       />
-        //     ) : (
-        //       <svg
-        //         xmlns="http://www.w3.org/2000/svg"
-        //         className="h-12 w-12 text-white"
-        //         viewBox="0 0 24 24"
-        //         fill="none"
-        //         stroke="currentColor"
-        //         strokeWidth="2"
-        //         strokeLinecap="round"
-        //         strokeLinejoin="round"
-        //       >
-        //         <circle cx="12" cy="12" r="10" />
-        //         <line x1="12" y1="16" x2="12" y2="12" />
-        //         <line x1="12" y1="8" x2="12" y2="8" />
-        //       </svg>
-        //     )}
-        //   </div>
-        //   <input
-        //     id="fileInput"
-        //     type="file"
-        //     accept="image/*"
-        //     capture="user"
-        //     className="hidden"
-        //     onChange={handleFileChange}
-        //   />
-        // </div>
-
-    //     {/* Skip Button */}
-    //     <button
-    //       className="mt-10 w-full px-4 py-2 text-center text-black bg-gray-300 rounded-full hover:bg-gray-400"
-    //       onClick={() => alert("Skipped for now")}
-    //     >
-    //       Skip for now
-    //     </button>
-    //   </div>
-    // </div>
 
 
      <div className="flex flex-col justify-center items-center px-20 py-10 w-full bg-white bg-opacity-10 max-md:px-5 max-md:max-w-full">

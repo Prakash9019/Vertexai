@@ -18,6 +18,7 @@ import OutreachPage from './Components2/Founder/Outreach';
 import { AuthProvider } from "./AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
 import FounderPage from './Components2/Founder/FounderPage';
+import ExplorePage from './Components2/Founder/Explore';
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/founder/*" element={<FounderPage />} />
         <Route path='/pricingpage' element={ <ProtectedRoute> <PricingPage /> </ProtectedRoute>  } />
        <Route path='/outreach' element={<OutreachPage />} />
+       <Route path='/explore' element={<ExplorePage />} />
 
 
         {/* not used */}

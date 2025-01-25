@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect,useContext  } from 'react';
+import { useNavigate,useLocation } from 'react-router-dom';
+import { loginUser,checkUser } from "../api";
+import { AuthContext } from "../AuthContext";
+
 
 const FloatingLabelInput = ({ id, label, type = 'text', maxLength = 50, validateEmail = false, value, onChange, onValidate, className = '' }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -63,77 +66,6 @@ const FloatingLabelInput = ({ id, label, type = 'text', maxLength = 50, validate
   );
 };
 
-
-
-
-
-
-// export function Signin() {
-//   const navigate = useNavigate();
-
-//   const handleClick = () => {
-//     navigate('/username');
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//   };
-
-
-//   const [email, setEmail] = useState(''); 
-//   const [isEmailValid, setIsEmailValid] = useState(false); 
-//    const [isFilled, setIsFilled] = useState(false); 
-
-//    useEffect(() => { if (isEmailValid) { setIsFilled(true); } else { setIsFilled(false); } }, [email, isEmailValid]);
-
-
-//   return (
-//     <div className="flex flex-col text-xl font-semibold text-white bg-black min-h-screen">
-//       <div className="flex flex-col justify-center items-center px-20 py-10 w-full bg-white bg-opacity-10 max-md:px-5 max-md:max-w-full">
-//         <div className="flex flex-col justify-center items-center px-20 py-9 max-w-full bg-black rounded-3xl w-[875px] max-md:px-5">
-//           <form
-//             onSubmit={handleSubmit}
-//             className="flex flex-col max-w-full w-[485px]"
-//             noValidate
-//           >
-//             <img
-//               loading="lazy"
-//               src="https://cdn.builder.io/api/v1/image/assets/TEMP/f1c512861316b27a0f461c6ab1c0a3a58abeef893050475df9aa2159b8643f22?placeholderIfAbsent=true&apiKey=42bb954c825745999302100cb42c8fd0"
-//               alt="Company logo"
-//               className="object-contain self-center aspect-square w-[60px]"
-//             />
-//             <h1 className="self-center mt-7 text-4xl font-extrabold">
-//             Sign in to Vertx
-//             </h1>
-
-           
-//             <div key="email" className="flex flex-col w-full mt-4">
-//             <FloatingLabelInput
-//                   id={`email`}  label="username, email address, or vertxuid"  type='email' validateEmail={ true}
-//                   value={email}
-//                   onChange={setEmail}
-//                   onValidate={setIsEmailValid}
-//                   className="w-full px-4 py-7 bg-black rounded-md border border-solid border-neutral-500 text-xl text-white"
-//                 />
-//             </div>
-
-           
-
-//             <button type="submit" className={`px-12 py-3 mt-4 font-extrabold text-black whitespace-nowrap rounded-[100px] focus:outline-none focus:ring-2 focus:ring-neutral-300 ${isFilled ? 'bg-white' : 'bg-neutral-500'}`} disabled={!isFilled} onClick={handleClick} >
-//               Next
-//             </button>
-//             <button type="button" className='px-12 py-3 mt-4 font-extrabold text-white  whitespace-nowrap rounded-[100px] focus:outline-none ring-2 ring-neutral-300 ' onClick={handleClick} >
-//               Forgot Password
-//             </button>
-//           </form>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
 export function Signin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -143,7 +75,9 @@ export function Signin() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(false);
-  
+   const { login } = useContext(AuthContext);
+   const location = useLocation();
+  const [errot,setError] = useState('');
   useEffect(() => {
     if (isEmailValid) {
       setIsFilled(true);
@@ -187,47 +121,45 @@ export function Signin() {
    
   };
 
-  // const [credentials, setCredentials] = useState({email: "", password: ""}) 
    
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log(e);
         if(password) { 
           try {
-            const response = await axios.post('https://vertxai-backend.vercel.app/api/auth/login', {
-              email: email,
-              password: password,
-            });
-      
-            const json = response.data;
-            // console.log(json);
-      
-            // Save the token to localStorage
-            localStorage.setItem('jwtData', json.jwtData);
-      
-            // Navigate to the next screen or perform other actions
-            console.log('Token saved:', json.jwtData);
-          
-      //  console.log(json.sucess);
-        if (json.sucess){
-            toast("Login Successfully");
-            navigate('/categories');
-
-        }
-        else{
-           // console.log(response);
-            toast(json.errors[0].msg);
             
-        }
-    }
-        catch (error) {
-            console.error('Error during login:', error.message);
-            // Handle login failure, show an alert, etc.
+            const response = await loginUser({email, password});
+            login(response.data.token);
+            const redirectTo = location.state?.from?.pathname || "/categories";
+            navigate(redirectTo); // Redirect to the page the user was trying to access
+          } catch (err) {
+            console.log(err.response.data.message || "Login failed");
           }
-          navigate('/categories')}
+    //       try {
+    //         const response = await axios.post('https://vertxai-backend.vercel.app/api/auth/login', {
+    //           email: email,
+    //           password: password,
+    //         });
+      
+    //         const json = response.data;
+    //         localStorage.setItem('jwtData', json.jwtData);
+    //         console.log('Token saved:', json.jwtData);
+    //     if (json.sucess){
+    //         toast("Login Successfully");
+    //         navigate('/categories');
+    //     }
+    //     else{
+    //         toast(json.errors[0].msg);
+    //     }
+    // }
+    //     catch (error) {
+    //         console.error('Error during login:', error.message);
+    //       }
+          // navigate('/categories')
+        
+        }
        else{
         try {
-          const response = await fetch('https://vertxai-backend.vercel.app/api/checkUser', {
+          const response = await fetch('https://vertxai-backend.vercel.app/api/auth/checkUser', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -246,7 +178,6 @@ export function Signin() {
           console.error('Error checking user:', error);
           setErrorMessage('An error occurred. Please try again.');
         }
-
          setShowPassword(true);
        }
    

@@ -5,6 +5,7 @@ import FounderLayout from './FounderLayout';
 import HomePage from './Homepage';
 import Geet from './Geet';
 import OutreachPage from './Outreach';
+import ExplorePage from './Explore';
 const FounderPage = () => {
   return (
     <Routes>
@@ -12,6 +13,7 @@ const FounderPage = () => {
         <Route index element={<Navigate to="home" />} />
         <Route path="home" element={<HomePage />} />
         <Route path="outreach" element={<OutreachPage />} />
+        <Route path="explore" element={<ExplorePage />} />
         {/* <Route path="contact" element={<ContactPage />} /> */}
       </Route>
     </Routes>

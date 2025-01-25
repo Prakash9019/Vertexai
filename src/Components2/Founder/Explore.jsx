@@ -1,9 +1,6 @@
 import logo1 from "../../assets/logo1.png"
 import logo2 from "../../assets/logohome.png"
-
-
 import { useState } from "react"
-import { MdOutlineVerified } from "react-icons/md";
 import {
   Home,
   Search,
@@ -19,21 +16,12 @@ import {
   ChevronDown,
 } from "lucide-react"
 
-export default function HomePage() {
-  const [activeNav, setActiveNav] = useState("home")
-  const [activeTab, setActiveTab] = useState("all")
+export default function ExplorePage() {
+  const [activeTab, setActiveTab] = useState("recommended")
   const [activeFeed, setActiveFeed] = useState("trending")
 
-  const navItems = [
-    { id: "home", label: "Home", icon: Home },
-    { id: "explore", label: "Explore", icon: Search },
-    { id: "outreach", label: "Outreach", icon: Users },
-    { id: "activity", label: "Activity", icon: Heart },
-    { id: "verified", label: "Get verified", icon: BadgeCheck },
-    { id: "more", label: "More", icon: MoreHorizontal },
-  ]
 
-  const feedTabs = ["All", "Top on Vertx", "Favorite", "Following"]
+  const feedTabs = ["Recommended", "Top on Vertx", "Users", "News", "Articles","Categories"]
   const recentNews = [
     {
       id: 1,
@@ -71,34 +59,26 @@ export default function HomePage() {
     <div className="min-h-screen bg-black text-white font-['Manrope']">
 
         {/* Main Content */}
-        <main className="fixed left-[20%] w-[47.25%] top-16 pt-5 bottom-0 overflow-y-auto border-r-2 border-zinc-800 z-30 hide-scrollbar">
+        <main className="fixed left-[20%] w-[50%] top-16 pt-5 bottom-0 overflow-y-auto border-r-2 border-zinc-800 z-30 hide-scrollbar">
         {/* Post Creation */}
 
 
 
           <div className="p-4 border-b-4 border-zinc-800">
             <div className="flex gap-4">
-              <img src={logo2} className="w-12 h-12 rounded-full bg-zinc-800" />
-              <div className="flex-1 ">
+              <div className="bg-zinc-900 rounded-full p-2 flex w-full items-center gap-2 border border-2 border-zinc-800">
+              <Search className="h-5 w-5 text-zinc-400" />
                 <input
                   type="text"
-                  placeholder="Post something..."
-                  className="w-full bg-transparent p-3 outline-none rounded-full border border-2 border-zinc-800"
+                  placeholder="Search for people, categories, and articles"
+                  className="w-full bg-transparent p-3 outline-none rounded-full "
                 />
-                <div className="flex justify-between items-center mt-4 px-3 pb-3">
-                  <div className="flex gap-4">
-                    <Image className="h-6 w-6" />
-                    <FileGif className="h-6 w-6" />
-                    <List className="h-6 w-6" />
-                    <Smile className="h-6 w-6" />
-                  </div>
-                  <button className="rounded-full px-6 py-2 bg-white text-black hover:bg-zinc-200">Post</button>
-                </div>
               </div>
+
             </div>
           </div>
 
-          {/* Feed Tabs */}
+          {/* Feed Tabs   Search for people, categories, and articles */}
           <div className="flex border-b-4 border-zinc-800">
             {feedTabs.map((tab) => (
               <button
@@ -147,7 +127,7 @@ export default function HomePage() {
         </main>
 
         {/* Right Sidebar */}
-        <aside className="w-[32.75%] fixed pt-5 right-0 top-16 bottom-0 border-l-1 border-zinc-800 bg-black z-40">
+        <aside className="w-[30%] fixed pt-5 right-0 top-16 bottom-0 border-l-1 border-zinc-800 bg-black z-40">
           <div className="p-4 h-full">
             <div className="bg-zinc-900 rounded-full p-3 flex items-center gap-2">
               <Search className="h-5 w-5 text-zinc-400" />
