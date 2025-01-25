@@ -25,7 +25,6 @@ import SetNewPassword from './New_Account/SetNewPassword';
 
 const App = () => {
   return (
-    <AuthProvider>
     <Router>
       
       <Routes>
@@ -58,7 +57,6 @@ const App = () => {
         <Route path='/geet' element={<Geet />} />
       </Routes>
     </Router>
-    </AuthProvider>
   );
 };
 

@@ -1,15 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { AuthContext } from "./AuthContext";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useContext(AuthContext);
+  const token = localStorage.getItem("verificationToken");
   const location = useLocation();
 
-  if (!user) {
-    return <Navigate to="/signup" state={{ from: location }} />;
+  if (!token) {
+    // Redirect to signup if token is missing
+    return <Navigate to="/signup" replace state={{ from: location }} />;
   }
 
+  // Allow access to protected route if token exists
   return children;
 };
 

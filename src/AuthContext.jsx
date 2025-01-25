@@ -1,10 +1,10 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
+   const [email,setEmail] =useState("");
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
     if (token) {
@@ -29,8 +29,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout,email,setEmail  }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
