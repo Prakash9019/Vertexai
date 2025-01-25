@@ -2,39 +2,43 @@ import * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Username() {
-  const [username, setUsername] = useState("");
+export default function FindAccount() {
+  const [identifier, setidentifier] = useState("");
+  const [error, setError] = useState('');
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const handleidentifierChange = (event) => {
+    setidentifier(event.target.value);
   };
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const token = localStorage.getItem("verificationToken");
-    if (!token) {
-        throw new Error("Session TimeOut..");
-    }
-      try {
-        const response = await fetch("http://localhost:5000/api/auth/set-username", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ token, username }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to register');
+    try {
+        const response = await fetch("http://localhost:5000/api/auth/verify-account", {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ identifier }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        const errorMessage = data.message || 'An unknown error occurred'; // Fallback message
+         throw new Error(errorMessage); // Throw dynamic erro   
+         }
+      localStorage.setItem('verificationToken', data.token); 
+      console.log(data);
+        
+        if (data.user) {
+            setError('');
+        } else {
+            setError('User does not exist');
         }
-
-        const data = await response.json();
-        console.log(data);
-        navigate('/categories');
-    } catch (error) {
-        console.error("Submission failed:", error);
-    }
-    };
+        navigate('/confirm-account');
+      } catch (error) {
+        console.error( error);
+        setError(error.message);
+      }
+     }
 
   return (
     <div className="flex flex-col font-extrabold text-white bg-black min-h-screen">
@@ -47,34 +51,35 @@ export default function Username() {
               alt="User setup logo"
               className="object-contain aspect-square w-[60px]"
             />
-            <h1 className="mt-7 text-4xl">Choose username</h1>
+            <h1 className="mt-7 text-4xl">Choose identifier</h1>
             <p className="mt-1.5 text-base font-medium text-neutral-500">
-              your username is unique. You can change it later.
+              your identifier is unique. You can change it later.
             </p>
             <form className="w-full" onSubmit={(e) => e.preventDefault()}>
               <div className="relative mt-14 max-md:mt-10">
-                <label htmlFor="username" className="sr-only">
-                  Choose your username
+                <label htmlFor="identifier" className="sr-only">
+                  Choose your identifier
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter your Username"
-                  name="username"
-                  value={username}
+                  placeholder="Enter your identifier"
+                  name="identifier"
+                  value={identifier}
                    
-                  onChange={handleUsernameChange}
+                  onChange={handleidentifierChange}
                   className="w-full bg-black rounded-md border border-solid border-neutral-500 h-[74px] px-4 text-xl focus:outline-none focus:border-white focus:ring-2 focus:ring-white"
-                  aria-label="Username input"
-                  autoComplete="username"
+                  aria-label="identifier input"
+                  autoComplete="identifier"
                 />
+                 {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
               </div>
               <button
                 type="button"
                 onClick={handleSubmit}
                 className="w-full px-12 py-3 mt-80 text-xl bg-black border border-white border-solid rounded-[100px] hover:bg-white hover:text-black transition-colors duration-200 max-md:px-5 max-md:mt-10"
-                aria-label="Skip username selection"
+                aria-label="Skip identifier selection"
               >
-                Set Username
+                Set identifier
               </button>
             </form>
           </div>

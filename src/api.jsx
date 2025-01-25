@@ -1,6 +1,13 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "https://vertxai-backend.vercel.app/api/user" });
+const API = axios.create({ baseURL: "https://vertxai-backend.vercel.app/api/user" ,
+  headers: {
+    "Access-Control-Allow-Headers" : "Content-Type",
+    "Access-Control-Allow-Origin": "*",
+  'Content-Type': 'application/json',
+   "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH"
+  },
+});
 
 // Add a request interceptor to include the JWT token in headers
 API.interceptors.request.use(

@@ -19,6 +19,9 @@ import { AuthProvider } from "./AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
 import FounderPage from './Components2/Founder/FounderPage';
 import ExplorePage from './Components2/Founder/Explore';
+import FindAccount from './New_Account/FindAccount';
+import ConfirmAccount from './New_Account/ConfirmAccount';
+import SetNewPassword from './New_Account/SetNewPassword';
 
 const App = () => {
   return (
@@ -39,6 +42,11 @@ const App = () => {
         <Route path='/username' element={<Username /> } />
         <Route path='/categories' element={<CategorySelection /> } />
         {/* account creating completed */}
+         
+         {/* forgot password */}
+           <Route path='/find-account' element={<FindAccount />} />
+           <Route path='/confirm-account' element={<ConfirmAccount /> } />
+           <Route path='/set-newpassword' element={< SetNewPassword /> } />
 
         <Route path="/founder/*" element={<FounderPage />} />
         <Route path='/pricingpage' element={ <ProtectedRoute> <PricingPage /> </ProtectedRoute>  } />

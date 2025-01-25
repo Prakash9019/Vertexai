@@ -17,31 +17,37 @@ const ProfilePictureUpload = () => {
   const openFilePicker = () => {
     document.getElementById("fileInput").click();
   };
-
-  const handleSubmit = async () => {
-    try {
-      const response = await fetch('https://vertxai-backend.vercel.app/api/auth/checkUser', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-      const data = await response.json();
-      if (data.exists) {
-        setShowPassword(true);
-        setErrorMessage('');
-      } else {
-        setErrorMessage('User does not exist');
-        setShowPassword(false);
-      }
-    } catch (error) {
-      console.error('Error checking user:', error);
-      setErrorMessage('An error occurred. Please try again.');
+    const handleSubmit1 =() =>{
+      navigate('/username');
     }
-    navigate('/username');
-
-  };
+    const handleSubmit = async () => {
+      const token = localStorage.getItem("verificationToken");
+      if (!token) {
+          throw new Error("Session TimeOut..");
+      }
+        // alert(`Entered coder: ${verificationcoder}`);
+        try {
+  
+          const response = await fetch("http://localhost:5000/api/auth/profile", {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ token, profilePic }),
+          });
+  
+          if (!response.ok) {
+              throw new Error('Failed to register');
+          }
+  
+          const data = await response.json();
+          console.log(data);
+          navigate('/username');
+      } catch (error) {
+          console.error("Submission failed:", error);
+      }
+      // alert(`Entered Code: ${verificationCode}`);
+    };
 
   return (
 
@@ -110,6 +116,12 @@ const ProfilePictureUpload = () => {
               <button
                 onClick={handleSubmit}
                 className={`px-12 py-3 mt-60 text-xl font-extrabold text-black whitespace-nowrap rounded-[100px] max-md:px-5 max-md:mt-10 max-md:mr-2.5 max-md:max-w-full bg-white`}
+              >
+                Upload the Profile Picture
+              </button>
+              <button
+                onClick={handleSubmit1}
+                className={`px-12 py-3 mt-6 text-xl font-extrabold text-black whitespace-nowrap rounded-[100px] max-md:px-5 max-md:mt-10 max-md:mr-2.5 max-md:max-w-full bg-white`}
               >
                 Skip for now
               </button>

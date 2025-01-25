@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useRef } from "react";import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-export default function Setpassword() {
+export default function SetNewPassword() {
   const navigate=useNavigate();
   const [code, setCode] = useState(Array(6).fill(""));
   const inputRefs = useRef([]);
@@ -33,7 +33,7 @@ export default function Setpassword() {
 
         const data = await response.json();
         console.log(data);
-        navigate('/profile');
+        navigate('/signin');
     } catch (error) {
         console.error("Submission failed:", error);
     }

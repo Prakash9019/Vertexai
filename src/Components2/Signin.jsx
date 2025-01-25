@@ -2,18 +2,19 @@ import { useState, useEffect,useContext  } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import { loginUser,checkUser } from "../api";
 import { AuthContext } from "../AuthContext";
+import { TbRuler } from 'react-icons/tb';
 
 
-const FloatingLabelInput = ({ id, label, type = 'text', maxLength = 50, validateEmail = false, value, onChange, onValidate, className = '' }) => {
+const FloatingLabelInput = ({ id, label, type = 'text', maxLength = 50, validateidentifier = false, value, onChange, onValidate, className = '' }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [error, setError] = useState('');
 
   const validateInput = (inputValue) => {
     let valid = true;
-    if (validateEmail) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(inputValue)) {
-        setError('Please enter a valid email address');
+    if (validateidentifier) {
+      const identifierRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!identifierRegex.test(inputValue)) {
+        setError('Please enter a valid identifier address');
         valid = false;
       } else {
         setError('');
@@ -68,8 +69,8 @@ const FloatingLabelInput = ({ id, label, type = 'text', maxLength = 50, validate
 
 export function Signin() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [identifier, setidentifier] = useState('');
+  const [isidentifierValid, setIsidentifierValid] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
@@ -79,12 +80,12 @@ export function Signin() {
    const location = useLocation();
   const [errot,setError] = useState('');
   useEffect(() => {
-    if (isEmailValid) {
+    if (isidentifierValid) {
       setIsFilled(true);
     } else {
       setIsFilled(false);
     }
-  }, [email, isEmailValid]);
+  }, [identifier, isidentifierValid]);
 
   const handleCheckUser = async () => {
     try {
@@ -93,7 +94,7 @@ export function Signin() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ identifier }),
       });
       const data = await response.json();
       if (data.exists) {
@@ -110,14 +111,8 @@ export function Signin() {
   };
 
   const handleClick = () => {
-    console.log('Checking 2222 3333 passwor');
-    if(password) { 
-      console.log('Checking passwor');
-      navigate('/categories')}
-   else{
-     setShowPassword(true);
-   }
-
+   
+      navigate('/find-account');
    
   };
 
@@ -125,49 +120,58 @@ export function Signin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(password) { 
+
+
           try {
-            
-            const response = await loginUser({email, password});
-            login(response.data.token);
-            const redirectTo = location.state?.from?.pathname || "/categories";
-            navigate(redirectTo); // Redirect to the page the user was trying to access
-          } catch (err) {
-            console.log(err.response.data.message || "Login failed");
+            const response = await fetch("http://localhost:5000/api/auth/login", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ identifier, password }),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+              const errorMessage = data.message || 'An unknown error occurred'; // Fallback message
+               throw new Error(errorMessage); // Throw dynamic erro   
           }
-    //       try {
-    //         const response = await axios.post('https://vertxai-backend.vercel.app/api/auth/login', {
-    //           email: email,
-    //           password: password,
-    //         });
-      
-    //         const json = response.data;
-    //         localStorage.setItem('jwtData', json.jwtData);
-    //         console.log('Token saved:', json.jwtData);
-    //     if (json.sucess){
-    //         toast("Login Successfully");
-    //         navigate('/categories');
-    //     }
-    //     else{
-    //         toast(json.errors[0].msg);
-    //     }
-    // }
-    //     catch (error) {
-    //         console.error('Error during login:', error.message);
-    //       }
-          // navigate('/categories')
-        
+            localStorage.setItem('verificationToken', data.token); 
+            console.log(data);
+            navigate("/categories");
+        } catch (error) {
+            console.error("Submission failed:", error.message);
+        }
+
+
+          // try {
+            
+          //   const response = await loginUser({identifier, password});
+          //   login(response.data.token);
+          //   const redirectTo = location.state?.from?.pathname || "/categories";
+          //   navigate(redirectTo); // Redirect to the page the user was trying to access
+          // } catch (err) {
+          //   console.log(err.response.data.message || "Login failed");
+          // }
+
         }
        else{
         try {
-          const response = await fetch('https://vertxai-backend.vercel.app/api/auth/checkUser', {
+          const response = await fetch("http://localhost:5000/api/auth/checkUser", {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email }),
-          });
-          const data = await response.json();
-          if (data.exists) {
+            body: JSON.stringify({ identifier }),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          const errorMessage = data.message || 'An unknown error occurred'; // Fallback message
+           throw new Error(errorMessage); // Throw dynamic erro   
+      }
+        localStorage.setItem('verificationToken', data.token); 
+        console.log(data);
+          
+          if (data.user) {
             setShowPassword(true);
             setErrorMessage('');
           } else {
@@ -175,10 +179,9 @@ export function Signin() {
             setShowPassword(false);
           }
         } catch (error) {
-          console.error('Error checking user:', error);
-          setErrorMessage('An error occurred. Please try again.');
+          console.error( error);
+          setErrorMessage(error.message);
         }
-         setShowPassword(true);
        }
    
     }
@@ -197,12 +200,12 @@ export function Signin() {
             />
             <h1 className="self-center mt-7 text-4xl font-extrabold">Sign in to Vertx</h1>
 
-            <div key="email" className="flex flex-col w-full mt-4">
+            <div key="identifier" className="flex flex-col w-full mt-4">
             <FloatingLabelInput
-                  id={`email`}  label="Email"  type='email' validateEmail={ true}
-                  value={email}
-                  onChange={setEmail}
-                  onValidate={setIsEmailValid}
+                  id={`identifier`}  label="identifier"  type='text' validateidentifier={ false}
+                  value={identifier}
+                  onChange={setidentifier}
+                  onValidate={setIsidentifierValid}
                   className="w-full px-4 py-6 bg-black rounded-md border border-solid border-neutral-500 text-white"
                 />
             </div>
@@ -216,7 +219,7 @@ export function Signin() {
                   value={password}
                   onChange={setPassword} 
                   onValidate={setIsPasswordValid} 
-                  validateEmail={false}
+                  validateidentifier={false}
                   className="w-full px-4 py-7 bg-black rounded-md border border-solid border-neutral-500 text-xl text-white"
                 />
               </div>

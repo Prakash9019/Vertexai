@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Verify() {
+export default function ConfirmAccount() {
     const navigate = useNavigate();
     const [coder, setcoder] = useState(Array(6).fill(""));
     const inputRefs = useRef([]);
@@ -48,21 +48,21 @@ export default function Verify() {
       // alert(`Entered coder: ${verificationcoder}`);
       try {
 
-        const response = await fetch("http://localhost:5000/api/auth/verify", {
+        const response = await fetch("http://localhost:5000/api/auth/verify-new", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ token, code }),
         });
-
-        if (!response.ok) {
+        const data = await response.json();
+        if (!data.status) {
             throw new Error('Failed to register');
         }
 
-        const data = await response.json();
+      
         console.log(data);
-      navigate('/setpassword');
+      navigate('/set-newpassword');
     } catch (error) {
         console.error("Submission failed:", error);
     }
