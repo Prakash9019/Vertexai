@@ -163,12 +163,9 @@ export function Signin() {
           const response = await fetch("https://vertxai-backend.vercel.app/api/auth/checkUser", {
             method: 'POST',
             headers: {
-              "Origin" :"*",
-              "Access-Control-Request-Headers":"Content-Type, Authorization",
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ identifier }),
-            "mode" :"no-cors",
         });
         const data = await response.json();
         if (!response.ok) {
