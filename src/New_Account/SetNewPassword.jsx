@@ -19,7 +19,7 @@ export default function SetNewPassword() {
         throw new Error("Session TimeOut..");
     }
       try {
-        const response = await fetch("http://localhost:5000/api/auth/set-password", {
+        const response = await fetch("https://vertxai-backend.vercel.app/api/auth/set-password", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

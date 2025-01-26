@@ -16,7 +16,7 @@ export default function Username() {
         throw new Error("Session TimeOut..");
     }
       try {
-        const response = await fetch("http://localhost:5000/api/auth/set-username", {
+        const response = await fetch("https://vertxai-backend.vercel.app/api/auth/set-username", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

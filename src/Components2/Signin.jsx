@@ -127,7 +127,7 @@ export function Signin() {
 
 
           try {
-            const response = await fetch("http://localhost:5000/api/auth/login", {
+            const response = await fetch("https://vertxai-backend.vercel.app/api/auth/login", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ export function Signin() {
         }
        else{
         try {
-          const response = await fetch("http://localhost:5000/api/auth/checkUser", {
+          const response = await fetch("https://vertxai-backend.vercel.app/api/auth/checkUser", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -7,7 +7,7 @@ const PitchAnalysis = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/pitch/create', { sections });
+      const response = await axios.post('https://vertxai-backend.vercel.app/api/pitch/create', { sections });
       setFeedback(response.data.feedback);
     } catch (error) {
       console.error(error);
