@@ -94,7 +94,7 @@ const FounderLayout = () => {
                     ${activeNav === item.id ? "font-bold before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-white before:rounded-full" : ""}`}
                 >
                   <Icon className={`h-5 w-5 ${
-                activeNav === item.id ? "text-white fill-white" : "text-gray-400"
+                activeNav === item.id ? "text-white" : "text-gray-400"
               }`} />
                   {item.label}
                 </button>

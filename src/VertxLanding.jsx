@@ -16,6 +16,15 @@ const images = [image0, image1, image2,image3];
 
 export function VertxLanding() {
   const navigate = useNavigate();
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
+  const handlePlayVideo = () => {
+      setIsVideoPlaying(true);
+  };
+
+  const handleCloseVideo = () => {
+      setIsVideoPlaying(false);
+  };
 
    const handleClick=()=>{
            navigate("/geet");
@@ -29,7 +38,7 @@ export function VertxLanding() {
   ];
 
   return (
-    <div className="flex overflow-hidden flex-col pb-10 bg-zinc-950">
+    <div className="flex overflow-hidden flex-col bg-zinc-950">
       <nav className="flex gap-5 justify-between items-center px-12 w-full text-base font-bold text-white bg-black max-md:px-5 max-md:max-w-full" role="navigation" aria-label="Main navigation">
         <div className="flex gap-1 self-stretch text-xl whitespace-nowrap">
           <img
@@ -50,21 +59,48 @@ export function VertxLanding() {
 
       <main className="flex flex-col items-center px-14 w-full max-md:px-5 max-md:max-w-full">
 
-        <section className="flex flex-col justify-center items-center self-stretch px-20 py-56 text-black bg-white rounded-xl max-md:px-5 max-md:py-24 max-md:max-w-full" aria-labelledby="hero-title">
-          <div className="flex flex-col items-center mb-0 max-w-full w-[748px] max-md:mb-2.5">
-            <h1 id="hero-title" className="text-7xl font-bold tracking-tighter text-center max-md:max-w-full max-md:text-4xl">
-              Introducing Vertx
-            </h1>
-            <p className="m-3 text-3xl font-semibold  max-md:max-w-full">
-              A vertex where founders and investors converge.
-            </p>
-            <button 
-              className="px-6 py-3.5 mt-9 max-w-full text-xl font-bold text-white bg-black rounded-[100px] w-[181px] max-md:px-5 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
-              aria-label="Watch introduction video"
-            >
-              Watch video
-            </button>
-          </div>
+      <section
+            className="flex flex-col justify-center items-center self-stretch px-20 py-56 text-black bg-white rounded-xl max-md:px-5 max-md:py-24 max-md:max-w-full"
+            aria-labelledby="hero-title"
+        >
+            {!isVideoPlaying && (
+                <div className="flex flex-col items-center mb-0 max-w-full w-[748px] max-md:mb-2.5">
+                    <h1
+                        id="hero-title"
+                        className="text-7xl font-bold tracking-tighter text-center max-md:max-w-full max-md:text-4xl"
+                    >
+                        Introducing Vertx
+                    </h1>
+                    <p className="m-3 text-3xl font-semibold max-md:max-w-full">
+                        A vertex where founders and investors converge.
+                    </p>
+                    <button
+                        onClick={handlePlayVideo}
+                        className="px-6 py-3.5 mt-9 max-w-full text-xl font-bold text-white bg-black rounded-[100px] w-[181px] max-md:px-5 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
+                        aria-label="Watch introduction video"
+                    >
+                        Watch video
+                    </button>
+                </div>
+            )}
+
+            {isVideoPlaying && (
+                <div className="relative w-full h-full flex justify-center items-center bg-black">
+                    <button
+                        onClick={handleCloseVideo}
+                        className="absolute top-5 right-5 text-white text-3xl font-bold bg-gray-800 rounded-full w-10 h-10 flex justify-center items-center"
+                        aria-label="Close video"
+                    >
+                        &times;
+                    </button>
+                    <video
+                        src="https://www.w3schools.com/html/mov_bbb.mp4" // Replace with your video URL
+                        className="w-full max-w-4xl rounded-lg"
+                        controls
+                        autoPlay
+                    />
+                </div>
+            )}
         </section>
 
         <h2 className="mt-40 text-5xl font-semibold tracking-tighter text-center text-white w-[867px] max-md:mt-10 max-md:max-w-full max-md:text-4xl">

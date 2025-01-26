@@ -1,12 +1,15 @@
 import * as React from "react";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Verify() {
     const navigate = useNavigate();
     const [coder, setcoder] = useState(Array(6).fill(""));
     const inputRefs = useRef([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
+    const notify = () => toast("Verification already sent!");
     const handleChange = (value, index) => {
         if (/^\d$/.test(value)) {
             const newcoder = [...coder];
@@ -65,6 +68,7 @@ export default function Verify() {
       navigate('/setpassword');
     } catch (error) {
         console.error("Submission failed:", error);
+        setErrorMessage(error.message);
     }
        
         
@@ -86,7 +90,7 @@ export default function Verify() {
                             Verify your email
                         </div>
                         <div className="mt-1.5 text-base font-medium text-neutral-500">
-                            We sent a coder. Enter it below to verify your email.
+                            We sent you a code. Enter it below to verify your email.
                         </div>
                         <div className="flex flex-wrap gap-5 justify-between self-stretch mt-20 max-md:mt-10 max-sm:mb-0">
                             {coder.map((_, index) => (
@@ -104,8 +108,11 @@ export default function Verify() {
                         </div>
                         <div className="self-start mt-6 text-base font-semibold text-neutral-500 max-md:ml-1">
                             Didn't receive an email?{" "}
-                            <span className="font-extrabold text-white">Resend</span>
+                            <span className="font-extrabold text-white" onClick={notify}  >Resend</span>
                         </div>
+                        {errorMessage && (
+                                   <p className="text-red-500 mt-4">{errorMessage}</p>
+                               )}
                     </div>
                     <button
                         onClick={handleSubmit}
@@ -113,6 +120,7 @@ export default function Verify() {
                     >
                         Next
                     </button>
+                    <ToastContainer />
                 </div>
             </div>
         </div>

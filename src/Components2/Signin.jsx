@@ -141,9 +141,10 @@ export function Signin() {
           }
             localStorage.setItem('verificationToken', data.token); 
             console.log(data);
-            navigate("/categories");
+            navigate("/founder/home");
         } catch (error) {
             console.error("Submission failed:", error.message);
+            setErrorMessage(error.message);
         }
 
 

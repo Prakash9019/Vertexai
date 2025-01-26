@@ -53,7 +53,7 @@ export default function Setpassword() {
             <div className="mt-7 text-4xl font-extrabold text-white">
               Set password
             </div>
-            <div className="mt-1.5 text-base font-medium text-neutral-500">
+            <div className="my-3 text-base font-medium text-neutral-500">
               Make sure it’s 8 characters or more.
             </div>
             {/* <div className="flex flex-wrap gap-5 justify-between self-stretch mt-20 max-md:mt-10 max-sm:mb-0">
@@ -71,7 +71,7 @@ export default function Setpassword() {
               ))}
             </div> */}
 
-            <div className="relative w-full">
+            <div className="relative w-full mt-20">
               {" "}
               <label
                 htmlFor="Password"

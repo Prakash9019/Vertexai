@@ -7,7 +7,26 @@ const FloatingLabelInput = ({ id, label, type = 'text', maxLength = 50, validate
 
     const validateInput = (inputValue) => {
         let valid = true;
-        if (validateEmail) {
+        
+        if (type === 'date') {
+            // Validate age for DOB field
+            const selectedDate = new Date(inputValue);
+            const currentDate = new Date();
+            let age = currentDate.getFullYear() - selectedDate.getFullYear();
+            const monthDifference = currentDate.getMonth() - selectedDate.getMonth();
+
+            // Adjust age if the birthday hasn't occurred yet this year
+            if (monthDifference < 0 || (monthDifference === 0 && currentDate.getDate() < selectedDate.getDate())) {
+                age--;
+            }
+
+            if (age < 16) {
+                setError('Age must be 16 or older');
+                valid = false;
+            } else {
+                setError('');
+            }
+        } else if (validateEmail) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(inputValue)) {
                 setError('Please enter a valid email address');
@@ -68,6 +87,7 @@ export function CreateAccountForm() {
     const [isEmailValid, setIsEmailValid] = useState(false);
     const [isNameValid, setIsNameValid] = useState(false);
     const [isDobValid, setIsDobValid] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [isFilled, setIsFilled] = useState(false);
 
     useEffect(() => {
@@ -84,20 +104,22 @@ export function CreateAccountForm() {
                 },
                 body: JSON.stringify({ email, dob }),
             });
-          //  console.log(response);
-            if (!response.ok) {
-                throw new Error('Failed to register');
-            }
             const data = await response.json();
+            if (!response.ok) {
+              const errorMessage = data.message || 'An unknown error occurred'; // Fallback message
+               throw new Error(errorMessage); // Throw dynamic erro   
+          }
             localStorage.setItem('verificationToken', data.token); 
             console.log(data);
             navigate("/verify");
         } catch (error) {
             console.error("Submission failed:", error);
+            setErrorMessage(error.message);
         }
     };
 
     return (
+     
       <div className="flex flex-col text-xl font-semibold text-white bg-black min-h-screen">
       <div className="flex flex-col justify-center items-center px-20 py-10 w-full bg-white bg-opacity-10 max-md:px-5 max-md:max-w-full">
         <div className="flex flex-col justify-center items-center px-20 py-9 max-w-full bg-black rounded-3xl w-[875px] max-md:px-5">
@@ -148,7 +170,10 @@ export function CreateAccountForm() {
                 This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.
                   </div>
             </div>
-
+            {errorMessage && (
+              <p className="text-red-500 mt-4">{errorMessage}</p>
+            )}
+ 
 
             <button type="submit" className={`px-12 py-3 mt-4 font-extrabold text-black whitespace-nowrap rounded-[100px] focus:outline-none focus:ring-2 focus:ring-neutral-300 ${isFilled ? 'bg-white' : 'bg-neutral-500'}`} disabled={!isFilled} >
               Next
@@ -157,5 +182,7 @@ export function CreateAccountForm() {
         </div>
       </div>
     </div>
+    // </div>
+    // </div>
   );
 }

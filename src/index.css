@@ -69,6 +69,9 @@
     }
   }
   
+  #root{
+    height: 90%;
+  }
 
   body {
     /* background-color: hsl(var(--background)); */
@@ -77,6 +80,8 @@
   }
 
   * {
+      /* width: 98%; */
+      /* height: 98%; */
     border-color: hsl(var(--border));
   }
 
