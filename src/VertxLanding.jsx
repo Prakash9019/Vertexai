@@ -9,6 +9,7 @@ import image2 from "./assets/image2.png"
 import image3 from "./assets/image3.png"
 import SlidingFeatureCards from './sliding';
 import logo from "./assets/logo.png"
+import video from "./Vertxai-launch.mp4"
 // import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const images = [image0, image1, image2,image3];
@@ -94,7 +95,7 @@ export function VertxLanding() {
                         &times;
                     </button>
                     <video
-                        src="https://www.w3schools.com/html/mov_bbb.mp4" // Replace with your video URL
+                        src={video} // Replace with your video URL
                         className="w-full max-w-4xl rounded-lg"
                         controls
                         autoPlay
