@@ -82,7 +82,6 @@ export function CreateAccountForm() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                "mode":"no-cors",
                 body: JSON.stringify({ email, dob }),
             });
           //  console.log(response);

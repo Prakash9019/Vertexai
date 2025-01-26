@@ -166,7 +166,6 @@ export function Signin() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ identifier }),
-            "mode":"no-cors",
         });
         const data = await response.json();
         if (!response.ok) {
