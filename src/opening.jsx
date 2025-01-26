@@ -7,7 +7,7 @@ export function LandingHero() {
   const navigate = useNavigate(); 
   
   const handleClick = () => { 
-    navigate('/founder/home');
+    navigate('/signup');
   }
 
   const handleClick1 = () => { 
