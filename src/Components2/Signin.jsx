@@ -80,7 +80,6 @@ export function Signin() {
       setIsPasswordVisible(!isPasswordVisible);
     };
   const [isPasswordValid, setIsPasswordValid] = useState(false);
-   const { login } = useContext(AuthContext);
    const location = useLocation();
   const [errot,setError] = useState('');
   useEffect(() => {
