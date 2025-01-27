@@ -80,8 +80,8 @@
   }
 
   * {
-      /* width: 98%; */
-      /* height: 98%; */
+  box-sizing: border-box;
+
     border-color: hsl(var(--border));
   }
 

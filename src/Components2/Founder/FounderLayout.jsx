@@ -49,6 +49,10 @@ const FounderLayout = () => {
        navigate('/pricingpage')
    }
 
+   const handleClick4 =()=>{
+    navigate('/founderprofile');
+   }
+
 
   return (
     
@@ -69,7 +73,7 @@ const FounderLayout = () => {
           <div className="flex gap-4">
             <button className="rounded-full px-6 py-2 border border-zinc-700 hover:bg-zinc-900" onClick={() => {handleClick3()}}>Upgrade</button>
             <button className="rounded-full px-6 py-2 border border-zinc-700 hover:bg-zinc-900">Submit</button>
-            <button className="rounded-full px-6 py-2 bg-white text-black hover:bg-zinc-200" onClick={() => {handleClick3()}}>Edit</button>
+            <button className="rounded-full px-6 py-2 bg-white text-black hover:bg-zinc-200" onClick={() => {handleClick4()}}>Edit</button>
           </div>
         </div>
       </header>

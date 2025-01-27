@@ -6,6 +6,7 @@ import HomePage from './Homepage';
 import Geet from './Geet';
 import OutreachPage from './Outreach';
 import ExplorePage from './Explore';
+import FounderProfile from './Profile';
 const FounderPage = () => {
   return (
     <Routes>
@@ -14,6 +15,7 @@ const FounderPage = () => {
         <Route path="home" element={<HomePage />} />
         <Route path="outreach" element={<OutreachPage />} />
         <Route path="explore" element={<ExplorePage />} />
+        <Route path="/founderprofile" element={<FounderProfile />} />
         {/* <Route path="contact" element={<ContactPage />} /> */}
       </Route>
     </Routes>

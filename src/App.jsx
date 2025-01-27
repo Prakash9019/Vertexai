@@ -22,9 +22,11 @@ import ExplorePage from './Components2/Founder/Explore';
 import FindAccount from './New_Account/FindAccount';
 import ConfirmAccount from './New_Account/ConfirmAccount';
 import SetNewPassword from './New_Account/SetNewPassword';
+import VCProfile from './Components2/Founder/Vcprofile';
+import FounderProfile from './Components2/Founder/Profile';
 
 
-const PASSWORD = "Vertxlabs@2025"; // Avoid hardcoding in production
+const PASSWORD = "12345"; // Avoid hardcoding in production
 
 const PasswordLock = ({ onUnlock }) => {
   const [password, setPassword] = useState("");
@@ -98,6 +100,8 @@ const App = () => {
         <Route path='/pricingpage' element={ <ProtectedRoute> <PricingPage /> </ProtectedRoute>  } />
        <Route path='/outreach' element={<OutreachPage />} />
        <Route path='/explore' element={<ExplorePage />} />
+       <Route path="/vcprofile" element={<VCProfile /> } />
+       <Route path="/founderprofile" element={<FounderProfile /> } />
 
 
         {/* not used */}
