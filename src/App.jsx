@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { VertxLanding } from './VertxLanding';
 import { LandingHero } from './opening';
@@ -23,7 +23,54 @@ import FindAccount from './New_Account/FindAccount';
 import ConfirmAccount from './New_Account/ConfirmAccount';
 import SetNewPassword from './New_Account/SetNewPassword';
 
+
+const PASSWORD = "Vertxlabs@2025"; // Avoid hardcoding in production
+
+const PasswordLock = ({ onUnlock }) => {
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password === PASSWORD) {
+      onUnlock(); // Unlock the app
+    } else {
+      setError("Incorrect password. Please try again.");
+    }
+  };
+
+  return (
+    <div className="flex items-center justify-center h-screen bg-zinc-800">
+      <form
+        onSubmit={handleSubmit}
+        className="p-6 bg-black rounded-lg shadow-md"
+      >
+        <h1 className="text-xl text-white font-bold mb-4">Enter Password</h1>
+        <input
+          type="password"
+          className="w-full p-2 border border-gray-300 rounded mb-3"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
+        <button
+          type="submit"
+          className="w-full p-2 bg-white text-black rounded"
+        >
+          Unlock
+        </button>
+      </form>
+    </div>
+  );
+};
+
 const App = () => {
+  const [unlocked, setUnlocked] = useState(false);
+
+  if (!unlocked) {
+    return <PasswordLock onUnlock={() => setUnlocked(true)} />;
+  }
   return (
     <Router>
       
