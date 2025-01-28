@@ -1,18 +1,26 @@
 
-import { Home, Search, Users, Heart, Shield, MoreHorizontal, Calendar, Zap } from "lucide-react"
-
+import { Home,BadgeCheck, MoreHorizontal, Calendar, Zap,User } from "lucide-react"
+import { LuUserRound } from "react-icons/lu";
+import { useState } from "react";
 
 export default function FounderProfile() {
+  const [activeButton, setActiveButton] = useState('Posts');
+
+  const handleClick = (buttonName) => {
+    setActiveButton(buttonName);
+  }
+
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white font-['Manrope']">
       {/* Header */}
-      <main className="ml-64 pt-20 p-8">
-        <div className="max-w-4xl mx-auto">
+      <main className="fixed left-[20%] w-[47.25%] top-16 pt-5  bottom-0 overflow-y-auto border-r-2 border-zinc-800 z-30 hide-scrollbar">
+      <div className="max-w-4xl mx-auto">
           {/* Profile Header */}
           <div className="relative mb-8">
             <div className="h-48 bg-gradient-to-b from-gray-800 to-black rounded-xl"></div>
-            <div className="absolute -bottom-16 left-8">
-              <div className="w-32 h-32 rounded-full bg-gray-700 border-4 border-black"></div>
+            <div className="absolute -bottom-16 left-7">
+              <User  className="w-32 h-32 p-6 rounded-full bg-gray-700 border-4 border-black" />
+
             </div>
             <div className="absolute top-4 right-4">
               <button className="px-4 py-1.5 rounded-full border border-white/20 hover:bg-white/10 transition">
@@ -23,18 +31,18 @@ export default function FounderProfile() {
 
           {/* Profile Info */}
           <div className="mt-20">
-            <div className="flex items-start justify-between mb-4">
+            <div className="flex items-start justify-between mb-4 p-4">
               <div>
                 <h1 className="text-2xl font-bold mb-1">Username</h1>
                 <p className="text-gray-400">@username1234567890</p>
               </div>
               <button className="px-4 py-1.5 rounded-full border border-white/20 hover:bg-white/10 transition flex items-center gap-2">
-                <Shield className="w-4 h-4" />
+                <BadgeCheck className="w-4 h-4" />
                 GET VERIFIED
               </button>
             </div>
 
-            <div className="flex items-center gap-6 text-gray-400 mb-6">
+            <div className="flex items-center gap-6 text-gray-400 mb-6 p-4">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
                 <span>Joined Month YYYY</span>
@@ -50,16 +58,27 @@ export default function FounderProfile() {
             </div>
 
             {/* Profile Tabs */}
-            <div className="border-b border-white/10">
-              <div className="flex gap-8">
-                <button className="px-4 py-4 text-sm font-medium border-b-2 border-white">Posts</button>
-                <button className="px-4 py-4 text-sm font-medium text-gray-400 hover:text-white transition">
-                  Articles
-                </button>
-                <button className="px-4 py-4 text-sm font-medium text-gray-400 hover:text-white transition">
-                  Media
-                </button>
-              </div>
+            <div className="border-4 border-white/10">
+      <div className="flex gap-72">
+        <button
+          className={`px-8 py-4 text-sm font-medium ${activeButton === 'Posts' ? 'border-b-2 border-white' : ''}`}
+          onClick={() => handleClick('Posts')}
+        >
+          Posts
+        </button>
+        <button
+          className={`px-4 py-4 text-sm font-medium ${activeButton === 'Articles' ? 'border-b-2 border-white' : ''}`}
+          onClick={() => handleClick('Articles')}
+        >
+          Articles
+        </button>
+        <button
+          className={`px-4 py-4 text-sm font-medium ${activeButton === 'Media' ? 'border-b-2 border-white' : ''}`}
+          onClick={() => handleClick('Media')}
+        >
+          Media
+        </button>
+      </div>
             </div>
           </div>
         </div>

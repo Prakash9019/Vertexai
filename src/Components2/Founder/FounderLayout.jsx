@@ -50,7 +50,7 @@ const FounderLayout = () => {
    }
 
    const handleClick4 =()=>{
-    navigate('/founderprofile');
+    navigate('/founder/founderprofile');
    }
 
 
