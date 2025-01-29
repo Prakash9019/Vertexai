@@ -7,7 +7,7 @@ const ProtectedRoute = ({ children }) => {
    console.log(token);
   if (!token) {
     // Redirect to signup if token is missing
-    return <Navigate to="/signup" replace state={{ from: location }} />;
+    return <Navigate to="/signup1" replace state={{ from: location }} />;
   }
   // if(token){
   //   return <Navigate to="/pricingpage" replace state={{ from: location}} />;

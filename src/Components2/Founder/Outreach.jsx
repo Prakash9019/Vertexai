@@ -1,7 +1,7 @@
 
 
 import { useState } from "react"
-import { Home, Search, Users, Heart, Shield, MoreHorizontal, ChevronDown } from "lucide-react"
+import { Home, Search, Users, Heart, Shield,LockKeyhole, MoreHorizontal, ChevronDown } from "lucide-react"
 
 export default function OutreachPage() {
   const [activeNav, setActiveNav] = useState("outreach")
@@ -12,7 +12,7 @@ export default function OutreachPage() {
     size: false,
     geography: false,
   })
-
+  const token = localStorage.getItem("verificationToken");
   const navItems = [
     { id: "home", label: "Home", icon: Home },
     { id: "explore", label: "Explore", icon: Search },
@@ -144,6 +144,11 @@ export default function OutreachPage() {
             </button>
 
             {/* Filters */}
+            {/* {!token && <div className="flex flex-col gap-3 justify-center items-center h-full"> 
+                 <LockKeyhole size={70} strokeWidth={2.5} />
+                 <h1 className="text-2xl">Login to access</h1>
+                 </div>} */}
+
             <div className="flex gap-4 mt-60 mb-8">
               {Object.entries(activeFilters).map(([key]) => (
                 <button
@@ -158,29 +163,47 @@ export default function OutreachPage() {
             </div>
 
             {/* VC Grid */}
-            <div className="grid grid-cols-3 gap-4">
-              {vcFirms.map((firm) => (
-                <div key={firm.id} className="bg-black border-4 border-zinc-800 rounded-xl p-6">
-                  <div className={`aspect-video ${firm.bgColor} rounded-lg flex items-center justify-center mb-4`}>
-                    <img src={firm.logo || "/placeholder.svg"} alt={firm.name} className="h-12" />
-                  </div>
-                  <div className="flex flex-col gap-4">
-                    <div>
-                      <h3 className="font-bold">{firm.name}</h3>
-                      <p className="text-sm text-zinc-400">{firm.type}</p>
-                    </div>
-                    <div className="flex gap-2">
-                      <button className="flex-1 px-4 py-2 rounded-full border border-zinc-700 text-sm hover:bg-zinc-900">
-                        Mark
-                      </button>
-                      <button className="flex-1 px-4 py-2 rounded-full border border-zinc-700 text-sm hover:bg-zinc-900">
-                        View profile
-                      </button>
-                    </div>
-                  </div>
+           
+    <div className="flex flex-col h-full">
+      {!token && (
+        <div className="flex flex-col gap-3 justify-center items-center h-full bg-opacity-90">
+          <LockKeyhole size={70} strokeWidth={2.5} />
+          <h1 className="text-2xl">Login to access</h1>
+        </div>
+      )}
+      
+      {token && (
+        <div className="grid grid-cols-3 gap-4">
+          {vcFirms.map((firm) => (
+            <div key={firm.id} className="bg-black border-4 border-zinc-800 rounded-xl p-6">
+              {/*  <div className={`aspect-video ${firm.bgColor} rounded-lg flex items-center justify-center mb-4`}>
+                <img src={firm.logo || "/placeholder.svg"} alt={firm.name} className="h-12" />
+
+              </div>  */}
+              <div className={`aspect-video bg-white rounded-lg flex items-center justify-center mb-4`}>
+                {/* <img src={firm.logo || "/placeholder.svg"} alt={firm.name} className="h-12" /> */}
+                  <h1 className="text-black font-black"> {firm.name} </h1>
+              </div>
+              <div className="flex flex-col gap-4">
+                <div>
+                  <h3 className="font-bold">{firm.name}</h3>
+                  <p className="text-sm text-zinc-400">{firm.type}</p>
                 </div>
-              ))}
+                <div className="flex gap-2">
+                  <button className="flex-1 px-4 py-2 rounded-full border border-zinc-700 text-sm hover:bg-zinc-900">
+                    Mark
+                  </button>
+                  <button className="flex-1 px-4 py-2 rounded-full border border-zinc-700 text-sm hover:bg-zinc-900">
+                    View profile
+                  </button>
+                </div>
+              </div>
             </div>
+          ))}
+        </div>
+      )}
+    </div>
+  
           </div>
         </main>
       </div>

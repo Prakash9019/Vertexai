@@ -52,7 +52,7 @@ const FounderLayout = () => {
    const handleClick4 =()=>{
     navigate('/founder/founderprofile');
    }
-
+   const token = localStorage.getItem("verificationToken");
 
   return (
     
@@ -71,9 +71,10 @@ const FounderLayout = () => {
             className="h-8"
           />
           <div className="flex gap-4">
-            <button className="rounded-full px-6 py-2 border border-zinc-700 hover:bg-zinc-900" onClick={() => {handleClick3()}}>Upgrade</button>
+          { !token   ?  
+            <button className="rounded-full px-6 py-2 border border-zinc-700 hover:bg-zinc-900" onClick={() => {handleClick3()}}>Sign in</button> : <>
             <button className="rounded-full px-6 py-2 border border-zinc-700 hover:bg-zinc-900">Submit</button>
-            <button className="rounded-full px-6 py-2 bg-white text-black hover:bg-zinc-200" onClick={() => {handleClick4()}}>Edit</button>
+            <button className="rounded-full px-6 py-2 bg-white text-black hover:bg-zinc-200" onClick={() => {handleClick4()}}>Edit</button> </> }
           </div>
         </div>
       </header>
@@ -108,13 +109,15 @@ const FounderLayout = () => {
 
           <div className="p-4">
             <button className="w-full rounded-full bg-white text-black py-3 font-bold mb-4" onClick={() => {handleClick3()}}>Flow</button>
-            <button className="w-full rounded-full border border-zinc-700 py-3 flex items-center justify-center gap-2" onClick={() => {handleClick3()}}>
+            {token &&  <button className="w-full rounded-full border-2 border-white text-white py-3 font-bold mb-4" onClick={() => {localStorage.removeItem("verificationToken")}}>Get Out </button>
+            }
+            {/* <button className="w-full rounded-full border border-zinc-700 py-3 flex items-center justify-center gap-2" onClick={() => {handleClick3()}}>
             <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M5.33329 14.6667L5.99996 10H2.66663L8.66663 1.33334H9.99996L9.33329 6.66668H13.3333L6.66663 14.6667H5.33329Z" fill="white"/>
 </svg>
 </span>
               Upgrade plan
-            </button>
+            </button> */}
           </div>
         </nav>
 

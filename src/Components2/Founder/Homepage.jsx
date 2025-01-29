@@ -11,7 +11,7 @@ import {
   Heart,
   Shield,
   MoreHorizontal,
-  Image,
+  Image,LockKeyhole ,
   FileImageIcon as FileGif,
   List,
   BadgeCheck,MessageSquare,Bookmark,Share2,
@@ -23,7 +23,7 @@ export default function HomePage() {
   const [activeNav, setActiveNav] = useState("home")
   const [activeTab, setActiveTab] = useState("all")
   const [activeFeed, setActiveFeed] = useState("trending")
-
+  const token = localStorage.getItem("verificationToken");
   const navItems = [
     { id: "home", label: "Home", icon: Home },
     { id: "explore", label: "Explore", icon: Search },
@@ -34,6 +34,9 @@ export default function HomePage() {
   ]
 
   const feedTabs = ["All", "Top on Vertx", "Favorite", "Following"]
+
+
+  const tabsToRender = token ? feedTabs : feedTabs.slice(0, 2);
   const recentNews = [
     {
       id: 1,
@@ -76,7 +79,7 @@ export default function HomePage() {
 
 
 
-          <div className="p-4 border-b-4 border-zinc-800">
+         { token && <div className="p-4 border-b-4 border-zinc-800">
             <div className="flex gap-4">
               <img src={logo2} className="w-12 h-12 rounded-full bg-zinc-800" />
               <div className="flex-1 ">
@@ -96,11 +99,11 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-          </div>
+          </div>}
 
           {/* Feed Tabs */}
           <div className="flex border-b-4 border-zinc-800">
-            {feedTabs.map((tab) => (
+            {tabsToRender.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab.toLowerCase())}
@@ -148,7 +151,7 @@ export default function HomePage() {
 
         {/* Right Sidebar */}
         <aside className="w-[32.75%] fixed pt-5 right-0 top-16 bottom-0 border-l-1 border-zinc-800 bg-black z-40">
-          <div className="p-4 h-full">
+          <div className="p-4 h-full ">
             <div className="bg-zinc-900 rounded-full p-3 flex items-center gap-2">
               <Search className="h-5 w-5 text-zinc-400" />
               <input type="text" placeholder='Ask "Geet"' className="bg-transparent outline-none flex-1" />
@@ -172,14 +175,20 @@ export default function HomePage() {
                   Funding
                 </button>
               </div>
-              {recentNews.map((news) => (
+              
+              {token && recentNews.map((news) => (
                 <div key={news.id} className="flex items-center gap-3 p-3 hover:bg-zinc-900 overflow-y-auto border-r-2 border-zinc-800 z-30 hide-scrollbar border cursor-pointer px-4">
                   <img src={news.image || "/placeholder.svg"} alt="" className="w-12 h-12 rounded-lg" />
                   <p className="flex-1 font-medium">{news.title}</p>
                   <MoreHorizontal className="h-5 w-5" />
                 </div>
               ))}
+              {!token && <div className="flex flex-col gap-3 justify-center items-center h-full"> 
+                 <LockKeyhole size={70} strokeWidth={2.5} />
+                 <h1 className="text-2xl">Login to access</h1>
+                 </div>}
             </div>
+            
           </div>
         </aside>
       </div>

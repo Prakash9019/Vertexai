@@ -1,6 +1,7 @@
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function AuthLayout() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,6 +42,20 @@ function AuthLayout() {
     );
   }
 
+  const [user, setUser] = useState(null);
+  
+    useEffect(() => {
+      axios
+        .get("http://localhost:5000/auth/user", { withCredentials: true })
+        .then((response) => setUser(response.data))
+        .catch(() => setUser(null));
+    }, []);
+  
+    const handleLogout = async () => {
+      await axios.get("http://localhost:5000/auth/logout", { withCredentials: true });
+      setUser(null);
+    };
+
 
   return (
 
@@ -61,7 +76,7 @@ function AuthLayout() {
               Join today.
             </h1>
             
-             <Button variant="outline">Sign up with credentials</Button>
+             <Button variant="outline">Sign up with Google</Button>
             <div className="flex gap-3.5 items-center mt-2 text-base whitespace-nowrap">
               <div className="shrink-0 self-stretch my-auto h-0 border border-white border-solid w-[158px]" />
               <div className="self-stretch">or</div>
@@ -110,7 +125,12 @@ function AuthLayout() {
         <h1 className="self-center mb-6 text-6xl tracking-tighter max-md:text-4xl max-md:mb-5">
           Join today.
         </h1>
-        <button className=" w-1/3 m-3 px-3 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white" onClick={()=>{handleClick1()}}> Sign up with credentials </button>
+        {/* <a href="http://localhost:5000/auth/google"
+          className="p-2 bg-blue-500 text-white"
+        >
+          Login with Google
+        </a> */}
+        <button className=" w-1/3 m-3 px-3 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white"> <a href="http://localhost:5000/auth/google" > Sign up with Google </a> </button>
         <div className="flex gap-3.5 items-center text-base whitespace-nowrap">
           <div className="shrink-0 self-stretch my-auto h-0 border border-white border-solid w-[158px]" />
           <div className="self-stretch">or</div>

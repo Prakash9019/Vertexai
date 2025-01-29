@@ -24,7 +24,7 @@ import ConfirmAccount from './New_Account/ConfirmAccount';
 import SetNewPassword from './New_Account/SetNewPassword';
 import VCProfile from './Components2/Founder/Vcprofile';
 import FounderProfile from './Components2/Founder/Profile';
-
+import Google from "./google"
 
 const PASSWORD = "12345"; // Avoid hardcoding in production
 

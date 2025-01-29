@@ -31,7 +31,7 @@ export function LandingHero() {
                 hi. this is vertx
               </div>
               <div className="self-start mt-5 ml-5 text-3xl font-semibold leading-8 text-neutral-500 max-md:ml-2.5">
-                A vertex where founders and investors converge.
+              create.build.connect.grow
               </div>
               <div className="flex gap-2.5 mt-12 max-md:mt-10">
                 <button className="px-11 text-black bg-white py-3.5 rounded-[100px] text-xl font-black" onClick={handleClick} >Try Vertx</button>
@@ -42,8 +42,8 @@ export function LandingHero() {
         </div>
         <div className="flex flex-col ml-5 w-[69%] max-md:ml-0 max-md:w-full">
           <div className="grow px-16 py-72 mt-7 w-full text-5xl font-bold tracking-tighter text-center text-black bg-white max-md:px-5 max-md:py-24 max-md:mt-10 max-md:max-w-full max-md:text-4xl">
-            <p className="text-7xl">Original Release on</p> 
-            <p className="text-4xl">26 January, 2025</p>
+            <p className="text-7xl">VERTX FOR</p> 
+            <p className="text-4xl">ENTREPRENEURS</p>
           </div>
         </div>
       </div>

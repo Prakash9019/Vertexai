@@ -7,7 +7,7 @@ import {
   Users,
   Heart,
   Shield,
-  MoreHorizontal,
+  MoreHorizontal,LockKeyhole,
   Image,
   FileImageIcon as FileGif,
   List,
@@ -17,11 +17,12 @@ import {
 } from "lucide-react"
 
 export default function ExplorePage() {
-  const [activeTab, setActiveTab] = useState("recommended")
+  const [activeTab, setActiveTab] = useState(0);
   const [activeFeed, setActiveFeed] = useState("trending")
 
-
-  const feedTabs = ["Recommended", "Top on Vertx", "Users", "News", "Articles","Categories"]
+  const token = localStorage.getItem("verificationToken");
+  const feedTabs = ["For You", "Top on Vertx", "Users", "News", "Articles","Categories"]
+  const tabsToRender = token ? feedTabs : feedTabs.slice(1, 6);
   const recentNews = [
     {
       id: 1,
@@ -80,12 +81,12 @@ export default function ExplorePage() {
 
           {/* Feed Tabs   Search for people, categories, and articles */}
           <div className="flex border-b-4 border-zinc-800">
-            {feedTabs.map((tab) => (
+            {tabsToRender.map((tab,index) => (
               <button
                 key={tab}
-                onClick={() => setActiveTab(tab.toLowerCase())}
+                onClick={() => setActiveTab(index)}
                 className={`flex-1 py-4 relative hover:bg-zinc-900
-                  ${activeTab === tab.toLowerCase() ? "font-bold after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-white" : ""}`}
+                  ${activeTab === index ? "font-bold after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-white" : ""}`}
               >
                 {tab}
               </button>
@@ -128,7 +129,7 @@ export default function ExplorePage() {
 
         {/* Right Sidebar */}
         <aside className="w-[30%] fixed pt-5 right-0 top-16 bottom-0 border-l-1 border-zinc-800 bg-black z-40">
-          <div className="p-4 h-full">
+          <div className="p-4 h-full ">
             <div className="bg-zinc-900 rounded-full p-3 flex items-center gap-2">
               <Search className="h-5 w-5 text-zinc-400" />
               <input type="text" placeholder='Ask "Geet"' className="bg-transparent outline-none flex-1" />
@@ -152,14 +153,20 @@ export default function ExplorePage() {
                   Funding
                 </button>
               </div>
-              {recentNews.map((news) => (
+              
+              {token && recentNews.map((news) => (
                 <div key={news.id} className="flex items-center gap-3 p-3 hover:bg-zinc-900 overflow-y-auto border-r-2 border-zinc-800 z-30 hide-scrollbar border cursor-pointer px-4">
                   <img src={news.image || "/placeholder.svg"} alt="" className="w-12 h-12 rounded-lg" />
                   <p className="flex-1 font-medium">{news.title}</p>
                   <MoreHorizontal className="h-5 w-5" />
                 </div>
               ))}
+              {!token && <div className="flex flex-col gap-3 justify-center items-center h-full"> 
+                 <LockKeyhole size={70} strokeWidth={2.5} />
+                 <h1 className="text-2xl">Login to access</h1>
+                 </div>}
             </div>
+            
           </div>
         </aside>
       </div>
