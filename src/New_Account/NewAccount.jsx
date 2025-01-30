@@ -110,6 +110,7 @@ export function CreateAccountForm() {
                throw new Error(errorMessage); // Throw dynamic erro   
           }
             localStorage.setItem('verificationToken', data.token); 
+            localStorage.setItem('email', data.email);
             console.log(data);
             navigate("/verify");
         } catch (error) {

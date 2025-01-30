@@ -127,7 +127,7 @@ export function Signin() {
 
 
           try {
-            const response = await fetch("https://vertxai-backend.vercel.app/api/auth/login", {
+            const response = await fetch("http://localhost:5000/api/auth/login", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -138,9 +138,11 @@ export function Signin() {
             if (!response.ok) {
               const errorMessage = data.message || 'An unknown error occurred'; // Fallback message
                throw new Error(errorMessage); // Throw dynamic erro   
-          }
+          } 
+          console.log(data);
             localStorage.setItem('verificationToken', data.token); 
-            console.log(data);
+            localStorage.setItem('email', data.email);
+           
             navigate("/founder/home");
         } catch (error) {
             console.error("Submission failed:", error.message);

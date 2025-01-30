@@ -1,10 +1,46 @@
 
 import { Home,BadgeCheck, MoreHorizontal, Calendar, Zap,User } from "lucide-react"
 import { LuUserRound } from "react-icons/lu";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 export default function FounderProfile() {
   const [activeButton, setActiveButton] = useState('Posts');
+  const [errorMessage, setErrorMessage] = useState("");
+  const [user, setUser] = useState(null);
+  
+  const email = localStorage.getItem("email");
+   console.log(email);
+  useEffect(() => {
+    // If email exists in localStorage, no need to fetch
+    if (!email) return;
+
+    const fetchUser = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/auth/get-user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+         console.log(data)
+        if (!response.ok) {
+          throw new Error(data.message || "An unknown error occurred");
+        }
+
+        // Save user data if needed
+       
+        setUser(data.user);
+        localStorage.setItem("email", data.user.email); // Store email for future use
+      } catch (error) {
+        console.error("Submission failed:", error.message);
+        setErrorMessage(error.message);
+      }
+    };
+
+    fetchUser();
+  }, [email]); // Runs only if email changes
 
   const handleClick = (buttonName) => {
     setActiveButton(buttonName);
@@ -16,6 +52,7 @@ export default function FounderProfile() {
       <main className="fixed left-[20%] w-[47.25%] top-16 pt-5  bottom-0 overflow-y-auto border-r-2 border-zinc-800 z-30 hide-scrollbar">
       <div className="max-w-4xl mx-auto">
           {/* Profile Header */}
+          {errorMessage && <p>Error: {errorMessage}</p>}
           <div className="relative mb-8">
             <div className="h-48 bg-gradient-to-b from-gray-800 to-black rounded-xl"></div>
             <div className="absolute -bottom-16 left-7">
@@ -33,7 +70,7 @@ export default function FounderProfile() {
           <div className="mt-20">
             <div className="flex items-start justify-between mb-4 p-4">
               <div>
-                <h1 className="text-2xl font-bold mb-1">Username</h1>
+                <h1 className="text-2xl font-bold mb-1">{user ? user.username : "Username"}</h1>
                 <p className="text-gray-400">@username1234567890</p>
               </div>
               <button className="px-4 py-1.5 rounded-full border border-white/20 hover:bg-white/10 transition flex items-center gap-2">
