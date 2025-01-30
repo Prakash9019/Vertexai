@@ -15,7 +15,7 @@ export default function FounderProfile() {
 
     const fetchUser = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/auth/get-user", {
+        const response = await fetch("https://vertxai-backend.vercel.app/api/auth/get-user", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
