@@ -139,7 +139,7 @@ export function Signin() {
               const errorMessage = data.message || 'An unknown error occurred'; // Fallback message
                throw new Error(errorMessage); // Throw dynamic erro   
           } 
-          console.log(data);
+          // console.log(data);
             localStorage.setItem('verificationToken', data.token); 
             localStorage.setItem('email', data.email);
            
@@ -176,7 +176,7 @@ export function Signin() {
            throw new Error(errorMessage); // Throw dynamic erro   
       }
         localStorage.setItem('verificationToken', data.token); 
-        console.log(data);
+
           
           if (data.user) {
             setShowPassword(true);
@@ -186,7 +186,7 @@ export function Signin() {
             setShowPassword(false);
           }
         } catch (error) {
-          console.error( error);
+          // console.error( error);
           setErrorMessage(error.message);
         }
        }

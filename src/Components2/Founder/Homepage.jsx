@@ -1,8 +1,5 @@
 import logo1 from "../../assets/logo1.png"
 import logo2 from "../../assets/logohome.png"
-
-
-import { useState } from "react"
 import { MdOutlineVerified } from "react-icons/md";
 import {
   Home,
@@ -18,8 +15,42 @@ import {
   Smile,
   ChevronDown,
 } from "lucide-react"
+import React, { useState, useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { GiphyFetch } from '@giphy/js-fetch-api';
+import { Gif } from '@giphy/react-components';
+import { Picker } from 'emoji-mart';
+// import 'emoji-mart/css/emoji-mart.css';
+// import 'emoji-mart-next/css/emoji-mart.css';
+
+// import { Image, FileGif, List, Smile } from 'react-icons/your-icon-library';
+
+const gf = new GiphyFetch('B5w77aj58wzsV0iZ27wdWXBBijgxgdle');
+
+
+
 
 export default function HomePage() {
+  const [selectedGif, setSelectedGif] = useState(null);
+  const [selectedEmoji, setSelectedEmoji] = useState('');
+
+const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const onDrop = useCallback((acceptedFiles) => {
+    // Handle file upload here
+    console.log(acceptedFiles);
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+  const selectGif = async () => {
+    const { data } = await gf.search('funny', { limit: 10 });
+    setSelectedGif(data[0]);
+  };
+
+  const addEmoji = (emoji) => {
+    setSelectedEmoji(selectedEmoji + emoji.native);
+  };
+
   const [activeNav, setActiveNav] = useState("home")
   const [activeTab, setActiveTab] = useState("all")
   const [activeFeed, setActiveFeed] = useState("trending")
@@ -79,27 +110,38 @@ export default function HomePage() {
 
 
 
-         { token && <div className="p-4 border-b-4 border-zinc-800">
+         { token &&  <div className="p-4 border-b-4 border-zinc-800">
+      <div className="flex gap-4">
+        <img src={logo2} className="w-12 h-12 rounded-full bg-zinc-800" />
+        <div className="flex-1">
+          <input
+            type="text"
+            placeholder="Post something..."
+            value={selectedEmoji}
+            onChange={(e) => setSelectedEmoji(e.target.value)}
+            className="w-full bg-transparent p-3 outline-none rounded-full border border-2 border-zinc-800"
+          />
+          <div className="flex justify-between items-center mt-4 px-3 pb-3">
             <div className="flex gap-4">
-              <img src={logo2} className="w-12 h-12 rounded-full bg-zinc-800" />
-              <div className="flex-1 ">
-                <input
-                  type="text"
-                  placeholder="Post something..."
-                  className="w-full bg-transparent p-3 outline-none rounded-full border border-2 border-zinc-800"
-                />
-                <div className="flex justify-between items-center mt-4 px-3 pb-3">
-                  <div className="flex gap-4">
-                    <Image className="h-6 w-6" />
-                    <FileGif className="h-6 w-6" />
-                    <List className="h-6 w-6" />
-                    <Smile className="h-6 w-6" />
-                  </div>
-                  <button className="rounded-full px-6 py-2 bg-white text-black hover:bg-zinc-200">Post</button>
-                </div>
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <Image className="h-6 w-6 cursor-pointer" />
               </div>
+              <FileGif className="h-6 w-6 cursor-pointer" onClick={selectGif} />
+              <List className="h-6 w-6 cursor-pointer" />
+              <Smile className="h-6 w-6 cursor-pointer" onClick={() => setShowEmojiPicker(true)} />
+              {showEmojiPicker && (
+                <Picker onSelect={addEmoji} />
+              )}
             </div>
-          </div>}
+            <button className="rounded-full px-6 py-2 bg-white text-black hover:bg-zinc-200">
+              Post
+            </button>
+          </div>
+          {selectedGif && <Gif gif={selectedGif} width={200} />}
+        </div>
+      </div>
+    </div>}
 
           {/* Feed Tabs */}
           <div className="flex border-b-4 border-zinc-800">

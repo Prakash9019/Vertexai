@@ -24,15 +24,15 @@ export default function FounderProfile() {
         });
 
         const data = await response.json();
-         console.log(data)
+         console.log(data);
         if (!response.ok) {
           throw new Error(data.message || "An unknown error occurred");
         }
 
         // Save user data if needed
        
-        setUser(data.user);
-        localStorage.setItem("email", data.user.email); // Store email for future use
+        setUser(data);
+        localStorage.setItem("email", data.email); // Store email for future use
       } catch (error) {
         console.error("Submission failed:", error.message);
         setErrorMessage(error.message);
@@ -52,7 +52,7 @@ export default function FounderProfile() {
       <main className="fixed left-[20%] w-[47.25%] top-16 pt-5  bottom-0 overflow-y-auto border-r-2 border-zinc-800 z-30 hide-scrollbar">
       <div className="max-w-4xl mx-auto">
           {/* Profile Header */}
-          {errorMessage && <p>Error: {errorMessage}</p>}
+          {/* {errorMessage && <p>Error: {errorMessage}</p>} */}
           <div className="relative mb-8">
             <div className="h-48 bg-gradient-to-b from-gray-800 to-black rounded-xl"></div>
             <div className="absolute -bottom-16 left-7">
@@ -71,7 +71,7 @@ export default function FounderProfile() {
             <div className="flex items-start justify-between mb-4 p-4">
               <div>
                 <h1 className="text-2xl font-bold mb-1">{user ? user.username : "Username"}</h1>
-                <p className="text-gray-400">@username1234567890</p>
+                <p className="text-gray-400">{user.email}</p>
               </div>
               <button className="px-4 py-1.5 rounded-full border border-white/20 hover:bg-white/10 transition flex items-center gap-2">
                 <BadgeCheck className="w-4 h-4" />
