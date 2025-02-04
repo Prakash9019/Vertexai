@@ -1,54 +1,70 @@
 import logo1 from "../../assets/logo1.png"
 import logo2 from "../../assets/logohome.png"
-import { MdOutlineVerified } from "react-icons/md";
 import {
-  Home,
-  Search,
-  Users,
-  Heart,
-  Shield,
-  MoreHorizontal,
-  Image,LockKeyhole ,
-  FileImageIcon as FileGif,
-  List,
+  Home,  Search,  Users,  Heart,
+  MoreHorizontal,  Image,LockKeyhole ,
   BadgeCheck,MessageSquare,Bookmark,Share2,
-  Smile,
-  ChevronDown,
 } from "lucide-react"
 import React, { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { GiphyFetch } from '@giphy/js-fetch-api';
-import { Gif } from '@giphy/react-components';
-import { Picker } from 'emoji-mart';
-// import 'emoji-mart/css/emoji-mart.css';
-// import 'emoji-mart-next/css/emoji-mart.css';
-
-// import { Image, FileGif, List, Smile } from 'react-icons/your-icon-library';
-
-const gf = new GiphyFetch('B5w77aj58wzsV0iZ27wdWXBBijgxgdle');
+import { useDropzone } from "react-dropzone";
+import { ImageIcon, FileImageIcon as FileGif, List, Smile, X } from "lucide-react";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 
 
 
 
 export default function HomePage() {
-  const [selectedGif, setSelectedGif] = useState(null);
-  const [selectedEmoji, setSelectedEmoji] = useState('');
+  const [postText, setPostText] = useState("");
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showGifPicker, setShowGifPicker] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
+  const [selectedGif, setSelectedGif] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [gifs, setGifs] = useState(null);
+  const [searchGif, setSearchGif] = useState("");
+  const [isGifError, setIsGifError] = useState(false);
 
-const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const onDrop = useCallback((acceptedFiles) => {
-    // Handle file upload here
-    console.log(acceptedFiles);
+    const file = acceptedFiles[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setSelectedImage(e.target?.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
-
-  const selectGif = async () => {
-    const { data } = await gf.search('funny', { limit: 10 });
-    setSelectedGif(data[0]);
-  };
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: { "image/*": [".png", ".jpg", ".jpeg", ".gif"] },
+    multiple: false,
+  });
 
   const addEmoji = (emoji) => {
-    setSelectedEmoji(selectedEmoji + emoji.native);
+    setPostText((prev) => prev + emoji.native);
+    setShowEmojiPicker(false);
+  };
+
+  const searchGifs = async (query) => {
+    setIsGifError(false);
+    try {
+      const mockGifs = [
+        { id: "1", images: { fixed_height: { url: "https://media.giphy.com/media/3o7TKsQ8UZx6b0HHbi/giphy.gif" } } },
+        { id: "2", images: { fixed_height: { url: "https://media.giphy.com/media/26ufnwz3wDUli7GU0/giphy.gif" } } },
+      ];
+      setGifs(mockGifs);
+    } catch (error) {
+      setIsGifError(true);
+    }
+  };
+
+  const handlePost = async () => {
+    setShowModal(false);
+    setPostText("");
+    setSelectedImage(null);
+    setSelectedGif(null);
   };
 
   const [activeNav, setActiveNav] = useState("home")
@@ -113,38 +129,74 @@ const [showEmojiPicker, setShowEmojiPicker] = useState(false);
          { token &&  <div className="p-4 border-b-4 border-zinc-800">
       <div className="flex gap-4">
         <img src={logo2} className="w-12 h-12 rounded-full bg-zinc-800" />
-        <div className="flex-1">
-          <input
-            type="text"
-            placeholder="Post something..."
-            value={selectedEmoji}
-            onChange={(e) => setSelectedEmoji(e.target.value)}
-            className="w-full bg-transparent p-3 outline-none rounded-full border border-2 border-zinc-800"
-          />
-          <div className="flex justify-between items-center mt-4 px-3 pb-3">
-            <div className="flex gap-4">
-              <div {...getRootProps()}>
+        <div className="flex-1 ">
+          <div
+            onClick={() => setShowModal(true)}
+            className="w-full p-3 outline-none rounded-full border border-2 border-zinc-800"
+          >    Post something... </div>
+            {showModal && (
+      // <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+      // <div className="bg-zinc-900 p-6 rounded-lg w-full max-w-lg relative z-50 shadow-xl pointer-events-auto">
+      <div className="fixed inset-0 left-[23%] top-24 bg-black bg-opacity-60 flex z-50 ">
+      <div className="bg-zinc-900 p-6 rounded-lg w-full max-w-lg relative z-50 shadow-xl border-black border-4 inline-block right-7">
+       
+        <button onClick={() => setShowModal(false)} className="absolute top-3 ">
+              <X className="h-6 w-6" />
+            </button>
+            <textarea
+              placeholder="Post something..."
+              value={postText}
+              onChange={(e) => setPostText(e.target.value)}
+              className="w-full bg-transparent p-3 outline-none rounded-lg min-h-[100px] resize-none"
+            />
+            {selectedImage && (
+             <div className="relative inline-block mt-2">
+             <img
+               src={selectedImage || "/placeholder.svg"}
+               alt="Preview"
+               className="max-h-60 rounded-lg object-cover"
+             />
+             <button
+               onClick={() => setSelectedImage(null)}
+               className="absolute top-2 right-2 p-1 bg-black/50 rounded-full"
+             >
+               <X className="w-4 h-4" />
+             </button>
+           </div>
+            )}
+            <div className="flex gap-4 mt-4">
+              <div {...getRootProps()} className="cursor-pointer">
                 <input {...getInputProps()} />
-                <Image className="h-6 w-6 cursor-pointer" />
+                <ImageIcon className="h-6 w-6" />
               </div>
-              <FileGif className="h-6 w-6 cursor-pointer" onClick={selectGif} />
-              <List className="h-6 w-6 cursor-pointer" />
-              <Smile className="h-6 w-6 cursor-pointer" onClick={() => setShowEmojiPicker(true)} />
-              {showEmojiPicker && (
-                <Picker onSelect={addEmoji} />
-              )}
+              <button onClick={() => setShowGifPicker(!showGifPicker)}>
+                <FileGif className="h-6 w-6" />
+              </button>
+              <button onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
+                <Smile className="h-6 w-6" />
+              </button>
             </div>
-            <button className="rounded-full px-6 py-2 bg-white text-black hover:bg-zinc-200">
+            {showEmojiPicker && (
+              <div className="absolute z-10 mt-2">
+                <Picker data={data} onEmojiSelect={addEmoji} theme="dark" />
+              </div>
+            )}
+            <button
+              onClick={handlePost}
+              disabled={!postText && !selectedImage}
+              className="w-full mt-4 p-2 bg-white text-black rounded-lg hover:bg-gray-300 disabled:opacity-50"
+            >
               Post
             </button>
           </div>
-          {selectedGif && <Gif gif={selectedGif} width={200} />}
+        </div>
+      )}
         </div>
       </div>
     </div>}
 
           {/* Feed Tabs */}
-          <div className="flex border-b-4 border-zinc-800">
+          <div className="flex  border-b-4 border-zinc-800">
             {tabsToRender.map((tab) => (
               <button
                 key={tab}
@@ -236,8 +288,6 @@ const [showEmojiPicker, setShowEmojiPicker] = useState(false);
       </div>
   )
 }
-
-
 
 
 
