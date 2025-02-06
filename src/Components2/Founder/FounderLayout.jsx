@@ -53,7 +53,20 @@ const FounderLayout = () => {
     navigate('/founder/founderprofile');
    }
    const token = localStorage.getItem("verificationToken");
-
+    const handleLogout = async () =>{
+      const confirmExit = window.confirm("Are you sure you want to exit?");
+      if (confirmExit) {
+        if(token){
+            localStorage.removeItem("verificationToken");
+        }
+        else{
+          await axios.get("https://vertxai-backend.vercel.app/auth/logout", { withCredentials: true });
+          setUser(null);
+        }
+       
+        window.location.reload(); // Refresh page or redirect if needed
+      }
+    }
   return (
     
     <div className="min-h-screen bg-black text-white font-['Manrope']">
@@ -112,13 +125,7 @@ const FounderLayout = () => {
             {token && (
   <button
     className="w-full rounded-full border-2 border-white text-white py-3 font-bold mb-4"
-    onClick={() => {
-      const confirmExit = window.confirm("Are you sure you want to exit?");
-      if (confirmExit) {
-        localStorage.removeItem("verificationToken");
-        window.location.reload(); // Refresh page or redirect if needed
-      }
-    }}
+    onClick={() => {  handleLogout(); }}
   >
     Get Out
   </button>
@@ -129,6 +136,11 @@ const FounderLayout = () => {
 <path d="M5.33329 14.6667L5.99996 10H2.66663L8.66663 1.33334H9.99996L9.33329 6.66668H13.3333L6.66663 14.6667H5.33329Z" fill="white"/>
 </svg>
 </span>
+ const handleLogout = async () => {
+      await axios.get("https://vertxai-backend.vercel.app/auth/logout", { withCredentials: true });
+      setUser(null);
+    };
+
               Upgrade plan
             </button> */}
           </div>

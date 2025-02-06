@@ -46,15 +46,12 @@ function AuthLayout() {
   
     useEffect(() => {
       axios
-        .get("https://vertxai-backend.vercel.app/api/auth/user", { withCredentials: true })
+        .get("https://vertxai-backend.vercel.app/auth/user", { withCredentials: true })
         .then((response) => setUser(response.data))
         .catch(() => setUser(null));
     }, []);
   
-    const handleLogout = async () => {
-      await axios.get("https://vertxai-backend.vercel.app/api/auth/logout", { withCredentials: true });
-      setUser(null);
-    };
+   
 
 
   return (
