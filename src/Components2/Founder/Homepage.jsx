@@ -5,13 +5,13 @@ import {
   MoreHorizontal,  Image,LockKeyhole ,
   BadgeCheck,MessageSquare,Bookmark,Share2,
 } from "lucide-react"
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect ,useCallback } from 'react';
 import { useDropzone } from "react-dropzone";
 import { ImageIcon, FileImageIcon as FileGif, List, Smile, X } from "lucide-react";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-
-
+import axios from "axios";
+import Post from "./Post";
 
 
 export default function HomePage() {
@@ -117,6 +117,32 @@ export default function HomePage() {
     },
   ]
 
+  const [posts, setPosts] = useState([]); // State to store posts
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // Fetch posts from backend
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get("https://vertxai-backend.vercel.app/api/posts/posts"); // Adjust API URL
+        setPosts(response.data);
+      } catch (err) {
+        setError("Failed to fetch posts");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  if (loading) return <p>Loading posts...</p>;
+  if (error) return <p>{error}</p>;
+
+
+
   return (
     <div className="min-h-screen bg-black text-white font-['Manrope']">
 
@@ -210,37 +236,18 @@ export default function HomePage() {
           </div>
 
           {/* Feed Content */}
-          <div className="p-4">
-            <div className="border-2 border-zinc-800 rounded-xl p-4">
-              <div className="flex justify-between items-start">
-                <div className="flex gap-3">
-                <img src={logo2} className="w-12 h-12 rounded-full bg-zinc-800" />
-                  <div>
-                    <h3 className="font-bold">Vertx AI</h3>
-                    <p>
-                      Mark the date.
-                      <br />
-                      We're going live on REPUBLIC DAY.
-                    </p>
-                  </div>
-                </div>
-                <MoreHorizontal className="h-6 w-6" />
-              </div>
-              <div className="mt-4 aspect-video bg-zinc-900 rounded-xl flex items-center justify-center">
-                <h2 className="text-3xl font-bold text-center">
-                  Original Release on
-                  <br />
-                  26 January, 2025
-                </h2>
-              </div>
-            </div>
-            <div className="flex flex-row justify-between items-center p-2 ml-2  w-full"> 
-              <div className="flex gap-2"> 
-            <Heart /> <MessageSquare />  
-             </div>  
-             <div className="flex gap-2">   <Bookmark />     <Share2 /> </div>
-            </div>
-          </div>
+          
+         
+     
+      {posts.length === 0 ? (
+        <p>No posts available.</p>
+      ) : (
+        posts.map((post) => <Post key={post._id} userId={post._id} post={post} />) // Pass each post as a prop to Post.js
+      )}
+    
+
+         
+         
         </main>
 
         {/* Right Sidebar */}
