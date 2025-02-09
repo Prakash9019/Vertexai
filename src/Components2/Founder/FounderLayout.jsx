@@ -52,8 +52,6 @@ const FounderLayout = () => {
        navigate('/pricingpage')
    }
    const handelLogout = () => {
-    setLoginData(null);
-    localStorage.removeItem("loginData");
     googleLogout();
   };
    const handleClick4 =()=>{
