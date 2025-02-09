@@ -133,9 +133,12 @@ export default function HomePage() {
         setSelectedImage(null);
         setSelectedGif(null);
         console.log(posts);
+        navigate(0);
       }
       navigate(0);
       setShowModal(false);
+      console.log("hellloooooooooo")
+      navigate(0);
     } catch (error) {
       console.error("Failed to create post:", error);
     }
