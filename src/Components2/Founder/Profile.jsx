@@ -8,9 +8,9 @@ export default function FounderProfile() {
   const [email, setEmail] = useState(null);
   const [pic,setPic ] = useState(null);
  
-  useEffect(() => {
-    const storedEmail = localStorage.getItem("email");
-    setEmail(storedEmail);
+  useEffect(() => {  
+    const token = localStorage.getItem("verificationToken");
+    // setEmail(storedEmail);
 
     if (!storedEmail) return;
     
@@ -21,7 +21,7 @@ export default function FounderProfile() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email: storedEmail }), // Send the correct email
+          body: JSON.stringify({token }), // Send the correct email
         });
 
         const data = await response.json();
