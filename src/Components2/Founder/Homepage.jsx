@@ -6,7 +6,7 @@ import {
 } from "lucide-react"
 import React, { useState, useEffect ,useCallback } from 'react';
 import { useDropzone } from "react-dropzone";
-import { ImageIcon, FileImageIcon as FileGif, List, Smile, X } from "lucide-react";
+import { ImageIcon, FileImageIcon as FileGif, List, Smile, X , User} from "lucide-react";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import axios from "axios";
@@ -106,7 +106,7 @@ export default function HomePage() {
     if (!token) {
       throw new Error("Session TimeOut..");
     }
-  
+     
     if (!postText.trim() && !selectedImage && !selectedGif) {
       return; // Prevent empty posts
     }
@@ -116,7 +116,10 @@ export default function HomePage() {
       formData.append("text", postText);
       formData.append("image", selectedImage);
       formData.append("token", token);
-  
+      const profilePic = localStorage.getItem("profilePic");
+       if(profilePic){
+          formData.append("profilePic",profilePic);
+       }
       const response = await fetch("https://vertxai-backend.vercel.app/api/posts/posts", {
         method: "POST",
         body: formData, // Sending as FormData instead of JSON
@@ -133,12 +136,10 @@ export default function HomePage() {
         setSelectedImage(null);
         setSelectedGif(null);
         console.log(posts);
-        navigate(0);
       }
-      navigate(0);
       setShowModal(false);
-      console.log("hellloooooooooo")
       navigate(0);
+
     } catch (error) {
       console.error("Failed to create post:", error);
     }
@@ -170,12 +171,10 @@ export default function HomePage() {
       fetchPosts();  
   
   }, []); 
-  
+  const pic=localStorage.getItem("profilePic");
 
   if (loading) return <p>Loading posts...</p>;
   if (error) return <p>{error}</p>;
-
-
 
   return (
     <div className="min-h-screen bg-black text-white font-['Manrope']">
@@ -184,10 +183,9 @@ export default function HomePage() {
         <main className="fixed left-[20%] w-[47.25%] top-16 pt-5 bottom-0 overflow-y-auto border-r-2 border-zinc-800 z-30 hide-scrollbar">
         {/* Post Creation */}
         
-
          { token &&  <div className="p-4 border-b-4 border-zinc-800">
       <div className="flex gap-4">
-        <img src={logo2} className="w-12 h-12 rounded-full bg-zinc-800" />
+      {pic ? <img src={pic} alt="Profile" className="w-12 h-12 rounded-full p-2 bg-zinc-800" /> : <User className="w-12 h-12 p-2 rounded-full bg-zinc-800" /> }
         <div className="flex-1 ">
           <div
             onClick={() => setShowModal(true)}

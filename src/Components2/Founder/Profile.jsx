@@ -12,7 +12,7 @@ export default function FounderProfile() {
     const token = localStorage.getItem("verificationToken");
     // setEmail(storedEmail);
 
-    if (!storedEmail) return;
+    if (!token) return;
     
     const fetchUser = async () => {
       try {
@@ -29,27 +29,11 @@ export default function FounderProfile() {
         if (!response.ok) {
           throw new Error(data.message || "An unknown error occurred");
         }
-
         setUser(data);
         // console.log(user);
         if(data.profilePic){
-          try {
-            const response = await fetch("https://vertxai-backend.vercel.app/api/auth/get-profile", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ email }),
-            });
-    
-            const d1 = await response.json();
-            if (!response.ok) {
-              throw new Error(data.message || "An unknown error occurred");
-            }
-            setPic(d1.user);
-          } catch (error) {
-            setErrorMessage(error.message);
-          }
+            setPic(data.profilePic);
+            localStorage.setItem("profilePic",data.profilePic);
         }
         // localStorage.setItem("email", data.email); // Ensure email is stored properly
       } catch (error) {
@@ -72,7 +56,7 @@ export default function FounderProfile() {
           <div className="relative mb-8">
             <div className="h-48 bg-gradient-to-b from-gray-800 to-black rounded-xl"></div>
             <div className="absolute -bottom-16 left-7">
-             {pic ? <img src={pic.profilePic} alt="Profile" className="w-32 h-32 rounded-full bg-gray-700 border-4 border-black" /> : <User className="w-32 h-32 p-6 rounded-full bg-gray-700 border-4 border-black" /> }
+             {pic ? <img src={pic} alt="Profile" className="w-32 h-32 rounded-full bg-gray-700 border-4 border-black" /> : <User className="w-32 h-32 p-6 rounded-full bg-gray-700 border-4 border-black" /> }
             </div>
             <div className="absolute top-4 right-4">
               <button className="px-4 py-1.5 rounded-full border border-white/20 hover:bg-white/10 transition">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Heart, MessageSquare,MoreHorizontal, Share2, Bookmark } from "lucide-react";
+import { Heart, MessageSquare,MoreHorizontal, Share2, Bookmark ,User } from "lucide-react";
 import axios from "axios";
 
 import { Buffer } from 'buffer';
@@ -10,7 +10,7 @@ const Post = ({ post, userId }) => {
   const [bookmarked, setBookmarked] = useState(post.bookmarks ? post.bookmarks.includes(userId) : 0);
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState(post.comments);
-
+  //  const pic=localStorage.getItem("profilePic"); 
   const handleAction = async (action, text = "") => {
     try {
       const response = await axios.put(`/api/posts/${post._id}/action`, { userId, action, text });
@@ -28,34 +28,15 @@ const Post = ({ post, userId }) => {
       console.error(error);
     }
   };
-  const [base64, setBase64] = useState(null);
-  const [mimeType, setMimeType] = useState(null);
-    
-  
-  // useEffect(() => {
-  //   if (post.image && post.image.data) {
-  //     const base64String = Buffer.from(post.image.data, "binary").toString("base64");
-  //     setBase64(base64String);
-  //     setMimeType(post.image.contentType);
-  //   }
-  // }, [post.image]); // ✅ Runs only when `post.image` changes
-  
 
   return (
     <div className="border-2 border-zinc-800 rounded-xl p-4">
-
-
-
-
-
-
-
-
 <div className="p-4" key={post._id}>
             <div className="border-2 border-zinc-800 rounded-xl p-4">
               <div className="flex justify-between items-start">
                 <div className="flex gap-3">
-                <img src={logo2} className="w-12 h-12 rounded-full bg-zinc-800" />
+                {post.profilePic ? <img src={post.profilePic} alt="Profile" className="w-12 h-12 rounded-full p-2 bg-zinc-800" /> : <User className="w-12 h-12 p-2 rounded-full bg-zinc-800" /> }
+           
                   <div>
                     {/* <h3 className="font-bold">{post.title}</h3> */}
                     <p>
@@ -94,54 +75,6 @@ const Post = ({ post, userId }) => {
               </div>
             </div>
           </div>
-
-
-
-
-
-
-
-
-
-      {/* <h1>{post.title}</h1>
-
-      {post.image && <img src={`data:image/jpeg;base64,${post.image}`} alt="Post" className="w-full h-auto rounded-lg mt-2" />}
-
-      <div className="flex justify-between items-center mt-4">
-        <div className="flex gap-2">
-          <button onClick={() => handleAction("like")} className={liked ? "text-red-500" : "text-white"}>
-            <Heart />
-          </button>
-          <span>{likes}</span>
-        </div>
-
-        <button className="flex gap-2" onClick={() => handleAction("share")}>
-          <Share2 />
-        </button>
-
-        <button onClick={() => handleAction("bookmark")} className={bookmarked ? "text-yellow-500" : "text-white"}>
-          <Bookmark />
-        </button>
-      </div>
-
-      <div className="mt-4">
-        <input
-          type="text"
-          placeholder="Write a comment..."
-          value={commentText}
-          onChange={(e) => setCommentText(e.target.value)}
-          className="border border-gray-700 rounded-md p-2 w-full"
-        />
-        <button onClick={() => handleAction("comment", commentText)} className="mt-2 p-2 bg-blue-500 text-white rounded-md">
-          Comment
-        </button>
-
-        {comments.map((comment, index) => (
-          <p key={index} className="mt-2 text-gray-400">
-            {comment.text}
-          </p>
-        ))}
-      </div> */}
     </div>
   );
 };
