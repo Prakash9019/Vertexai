@@ -52,7 +52,9 @@ const FounderLayout = () => {
        navigate('/pricingpage')
    }
    const handelLogout = () => {
+    console.log("logout");
     googleLogout();
+
   };
    const handleClick4 =()=>{
     navigate('/founder/founderprofile');
