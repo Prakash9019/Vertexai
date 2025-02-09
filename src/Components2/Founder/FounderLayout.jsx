@@ -22,6 +22,9 @@ import { FaHome, FaSearch, FaUsers, FaBox, FaHeart, FaCog, FaEllipsisH } from 'r
 import { useNavigate } from 'react-router-dom';
 import logo from "../../assets/logo.png"
 import { Link, Outlet } from 'react-router-dom';
+import {
+  googleLogout,
+} from "@react-oauth/google";
 
 const FounderLayout = () => {
   const [activeIndex, setActiveIndex] = useState(0); // To track the active button
@@ -48,20 +51,26 @@ const FounderLayout = () => {
    const handleClick3 =()=>{
        navigate('/pricingpage')
    }
-
+   const handelLogout = () => {
+    setLoginData(null);
+    localStorage.removeItem("loginData");
+    googleLogout();
+  };
    const handleClick4 =()=>{
     navigate('/founder/founderprofile');
    }
+
    const token = localStorage.getItem("verificationToken");
+
     const handleLogout = async () =>{
       const confirmExit = window.confirm("Are you sure you want to exit?");
       if (confirmExit) {
         if(token){
             localStorage.removeItem("verificationToken");
+            handelLogout();
         }
         else{
           localStorage.removeItem("verificationToken");
-          await axios.get("https://vertxai-backend.vercel.app/logout");
           setUser(null);
         }
        
