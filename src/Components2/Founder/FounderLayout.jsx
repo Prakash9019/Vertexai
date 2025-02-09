@@ -60,7 +60,8 @@ const FounderLayout = () => {
             localStorage.removeItem("verificationToken");
         }
         else{
-          await axios.get("https://vertxai-backend.vercel.app/auth/logout", { withCredentials: true });
+          localStorage.removeItem("verificationToken");
+          await axios.get("https://vertxai-backend.vercel.app/logout");
           setUser(null);
         }
        
