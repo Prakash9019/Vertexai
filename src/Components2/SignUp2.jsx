@@ -2,6 +2,7 @@
 import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Login from "./googlelogin";
 
 function AuthLayout() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,14 +45,20 @@ function AuthLayout() {
 
   const [user, setUser] = useState(null);
   
-    useEffect(() => {
-      axios
-        .get("https://vertxai-backend.vercel.app/auth/user", { withCredentials: true })
-        .then((response) => setUser(response.data))
-        .catch(() => setUser(null));
-    }, []);
+    // useEffect(() => {
+    //   axios
+    //     .get("https://vertxai-backend.vercel.app/auth/user", { withCredentials: true })
+    //     .then((response) => setUser(response.data))
+    //     .catch((err) => console.error("Error fetching user:", err));
+    // }, []);
   
-   
+    const handelLogin= async()=>{
+        const response= axios.get("https://vertxai-backend.vercel.app/auth/google", { withCredentials: true });
+        console.log(response);
+        const data = await response.json();
+        console.log(data);
+    }
+    
 
 
   return (
@@ -127,7 +134,10 @@ function AuthLayout() {
         >
           Login with Google
         </a> */}
-        <button className=" w-1/3 m-3 px-3 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white"> <a href="https://vertxai-backend.vercel.app/auth/google" > Sign up with Google </a> </button>
+        <Login />
+        {/* <button className=" w-1/3 m-3 px-3 py-3 font-semibold whitespace-nowrap border border-white border-solid rounded-[100px] max-md:px-5 transition-colors duration-200 hover:opacity-90 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-none text-white"> 
+        <a href="https://vertxai-backend.vercel.app/auth/google" > Sign up with Google </a>
+         </button> */}
         <div className="flex gap-3.5 items-center text-base whitespace-nowrap">
           <div className="shrink-0 self-stretch my-auto h-0 border border-white border-solid w-[158px]" />
           <div className="self-stretch">or</div>

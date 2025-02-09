@@ -26,7 +26,7 @@ export default function SetNewPassword() {
             },
             body: JSON.stringify({ token, password }),
         });
-
+          console.log(response);
         if (!response.ok) {
             throw new Error('Failed to register');
         }

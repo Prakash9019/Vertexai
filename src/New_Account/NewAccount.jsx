@@ -102,7 +102,7 @@ export function CreateAccountForm() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, dob }),
+                body: JSON.stringify({ name, email, dob }),
             });
             const data = await response.json();
             if (!response.ok) {
@@ -110,7 +110,7 @@ export function CreateAccountForm() {
                throw new Error(errorMessage); // Throw dynamic erro   
           }
             localStorage.setItem('verificationToken', data.token); 
-            localStorage.setItem('email', data.email);
+            // localStorage.setItem('email', data.email);
             console.log(data);
             navigate("/verify");
         } catch (error) {

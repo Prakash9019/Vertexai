@@ -25,6 +25,7 @@ import SetNewPassword from './New_Account/SetNewPassword';
 import VCProfile from './Components2/Founder/Vcprofile';
 import FounderProfile from './Components2/Founder/Profile';
 import Google from "./google"
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const PASSWORD = "12345"; // Avoid hardcoding in production
 
@@ -74,6 +75,8 @@ const App = () => {
     return <PasswordLock onUnlock={() => setUnlocked(true)} />;
   }
   return (
+    <GoogleOAuthProvider clientId={'673542565874-ssffgagnlcbstnstkkg4q8lg27dbo9l3.apps.googleusercontent.com'}>
+          
     <Router>
       
       <Routes>
@@ -108,6 +111,7 @@ const App = () => {
         <Route path='/geet' element={<Geet />} />
       </Routes>
     </Router>
+    </GoogleOAuthProvider>
   );
 };
 

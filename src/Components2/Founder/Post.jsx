@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Heart, MessageSquare,MoreHorizontal, Share2, Bookmark } from "lucide-react";
 import axios from "axios";
 
+import { Buffer } from 'buffer';
 import logo2 from "../../assets/logohome.png"
 const Post = ({ post, userId }) => {
-  const [likes, setLikes] = useState(post.likes.length);
-  const [liked, setLiked] = useState(post.likes.includes(userId));
-  const [bookmarked, setBookmarked] = useState(post.bookmarks.includes(userId));
+  const [likes, setLikes] = useState(post.likes ? post.likes.length : 0);
+  const [liked, setLiked] = useState(post.likes ? post.likes.includes(userId) : 0 );
+  const [bookmarked, setBookmarked] = useState(post.bookmarks ? post.bookmarks.includes(userId) : 0);
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState(post.comments);
 
@@ -27,6 +28,18 @@ const Post = ({ post, userId }) => {
       console.error(error);
     }
   };
+  const [base64, setBase64] = useState(null);
+  const [mimeType, setMimeType] = useState(null);
+    
+  
+  // useEffect(() => {
+  //   if (post.image && post.image.data) {
+  //     const base64String = Buffer.from(post.image.data, "binary").toString("base64");
+  //     setBase64(base64String);
+  //     setMimeType(post.image.contentType);
+  //   }
+  // }, [post.image]); // ✅ Runs only when `post.image` changes
+  
 
   return (
     <div className="border-2 border-zinc-800 rounded-xl p-4">
@@ -38,15 +51,15 @@ const Post = ({ post, userId }) => {
 
 
 
-<div className="p-4">
+<div className="p-4" key={post._id}>
             <div className="border-2 border-zinc-800 rounded-xl p-4">
               <div className="flex justify-between items-start">
                 <div className="flex gap-3">
                 <img src={logo2} className="w-12 h-12 rounded-full bg-zinc-800" />
                   <div>
-                    <h3 className="font-bold">{post.title}</h3>
+                    {/* <h3 className="font-bold">{post.title}</h3> */}
                     <p>
-                      {post.description}
+                      {post.text}
                     </p>
                   </div>
                 </div>
@@ -58,7 +71,8 @@ const Post = ({ post, userId }) => {
                   <br />
                   26 January, 2025
                 </h2> */}
-                   {post.image && <img src={`data:image/jpeg;base64,${post.image}`} alt="Post" />}
+                   {post.imageUrl && <img src={post.imageUrl} alt="Post" />}
+                   {post.image && <img src={ post.image.data ?`data:${post.image.contentType};base64,${Buffer.from(post.image.data, "binary").toString("base64")} ` : `data:image/jpeg;base64,${post.image}`} alt="Post" />}
               </div>
 
               

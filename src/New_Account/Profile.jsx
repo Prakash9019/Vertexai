@@ -35,13 +35,12 @@ const ProfilePictureUpload = () => {
               },
               body: JSON.stringify({ token, profilePic }),
           });
-  
+          const data = await response.json();
           if (!response.ok) {
               throw new Error('Failed to register');
           }
-  
-          const data = await response.json();
           console.log(data);
+          console.log("heelllooo")
           navigate('/username');
       } catch (error) {
           console.error("Submission failed:", error);
