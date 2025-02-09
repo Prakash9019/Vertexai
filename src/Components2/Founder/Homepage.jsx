@@ -11,6 +11,7 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import axios from "axios";
 import Post from "./Post";
+import { useNavigate } from "react-router-dom";
 
 
 export default function HomePage() {
@@ -20,7 +21,7 @@ export default function HomePage() {
   const [selectedImage, setSelectedImage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [selectedGif, setSelectedGif] = useState(null);
-
+   const navigate = useNavigate();
   const addEmoji = (emoji) => {
     setPostText((prev) => prev + emoji.native);
     setShowEmojiPicker(false);
@@ -133,6 +134,7 @@ export default function HomePage() {
         setSelectedGif(null);
         console.log(posts);
       }
+      navigate(0);
       setShowModal(false);
     } catch (error) {
       console.error("Failed to create post:", error);
