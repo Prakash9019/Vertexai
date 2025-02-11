@@ -23,8 +23,9 @@ export default function ConfirmPassword() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                 'Authorization': `Bearer ${localStorage.getItem("verificationToken")}`
             },
-            body: JSON.stringify({ token, password }),
+            body: JSON.stringify({  password }),
         });
 
         if (!response.ok) {

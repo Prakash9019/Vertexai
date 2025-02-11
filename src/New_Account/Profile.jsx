@@ -32,15 +32,14 @@ const ProfilePictureUpload = () => {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
+                   'Authorization': `Bearer ${localStorage.getItem("verificationToken")}`
               },
-              body: JSON.stringify({ token, profilePic }),
+              body: JSON.stringify({  profilePic }),
           });
           const data = await response.json();
           if (!response.ok) {
               throw new Error('Failed to register');
           }
-          console.log(data);
-          console.log("heelllooo")
           navigate('/username');
       } catch (error) {
           console.error("Submission failed:", error);

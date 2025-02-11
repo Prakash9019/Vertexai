@@ -20,8 +20,9 @@ export default function Username() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                 'Authorization': `Bearer ${localStorage.getItem("verificationToken")}`
             },
-            body: JSON.stringify({ token, username }),
+            body: JSON.stringify({  username }),
         });
 
         const data = await response.json();

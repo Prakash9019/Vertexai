@@ -29,7 +29,7 @@ export default function Login() {
   }, [loginData]);
   const handelLogin = async (googleData) => {
     try {
-      const res = await fetch("https://vertxai-backend.vercel.app/api/google-login", {
+      const res = await fetch("http://localhost:5000/api/google-login", {
         method: "POST",
         body: JSON.stringify({ token: googleData }),
         credentials: "include", 

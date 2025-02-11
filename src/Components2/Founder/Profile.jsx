@@ -20,8 +20,8 @@ export default function FounderProfile() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-          },
-          body: JSON.stringify({token }), // Send the correct email
+             'Authorization': `Bearer ${localStorage.getItem("verificationToken")}`
+          }
         });
 
         const data = await response.json();

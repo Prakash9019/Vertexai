@@ -55,8 +55,9 @@ export default function Verify() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                 'Authorization': `Bearer ${localStorage.getItem("verificationToken")}`
             },
-            body: JSON.stringify({ token, code }),
+            body: JSON.stringify({  code }),
         });
 
         if (!response.ok) {

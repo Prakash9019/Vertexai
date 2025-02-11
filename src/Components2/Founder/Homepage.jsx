@@ -115,13 +115,15 @@ export default function HomePage() {
       const formData = new FormData();
       formData.append("text", postText);
       formData.append("image", selectedImage);
-      formData.append("token", token);
       const profilePic = localStorage.getItem("profilePic");
        if(profilePic){
           formData.append("profilePic",profilePic);
        }
       const response = await fetch("https://vertxai-backend.vercel.app/api/posts/posts", {
         method: "POST",
+        headers: {
+           'Authorization': `Bearer ${localStorage.getItem("verificationToken")}`
+        },
         body: formData, // Sending as FormData instead of JSON
       });
   
